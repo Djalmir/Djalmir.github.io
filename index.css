@@ -57,6 +57,8 @@ section {
 	padding: 10px 10px 20px;
 	box-sizing: border-box;
 	width: fit-content;
+	max-width: 100%;
+	overflow-x: auto;
 }
 
 h2 {
