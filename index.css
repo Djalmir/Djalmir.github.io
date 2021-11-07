@@ -37,7 +37,7 @@ header {
 }
 
 h1 {
-	color: #0099ff;
+	color: #bbb;
 	text-align: center;
 	font-size: 26px;
 }
@@ -97,11 +97,11 @@ li::before {
 	height: calc(100% - 2px);
 	border: 1px solid #0099ff;
 	border-right: none;
-	background: #303030;
+	background: linear-gradient(to right, #303030, #202020);
 	border-radius: .5rem 0 0 .5rem;
 	transform: scaleX(0);
 	transform-origin: left;
-	transition: .2s;
+	transition: .4s;
 	z-index: 0;
 }
 
@@ -114,11 +114,11 @@ li::after {
 	height: calc(100% - 2px);
 	border: 1px solid #0099ff;
 	border-left: none;
-	background: #303030;
+	background: linear-gradient(to left, #303030, #202020);
 	border-radius: 0 .5rem .5rem 0;
 	transform: scaleX(0);
 	transform-origin: right;
-	transition: .2s;
+	transition: .4s;
 	z-index: 0;
 }
 
@@ -127,19 +127,19 @@ li:hover::before, li:hover::after {
 }
 
 b {
-	background: linear-gradient(10deg, #121212, #181818 20%, #0033662d 60%, transparent 75%);
+	background: linear-gradient(10deg, #181818, transparent);
 	padding: 4px 8px 2px;
 	box-sizing: border-box;
-	border-radius: .4rem 1rem 0 0;
+	border-radius: .4rem .4rem 0 0;
 	display: flex;
-	width: 80%;
+	width: 100%;
 }
 
 hr {
 	position: relative;
 	border: none;
 	border-bottom: 1px solid #181818;
-	margin: 0 20% 10px 0;
+	margin: 0 0 10px 0;
 }
 
 p {
@@ -155,10 +155,10 @@ pre {
 	border-radius: .5rem;
 }
 
-#copyLinkBt{
+#copyLinkBt {
 	width: 100%;
 	/* max-width: 360px; */
-	border:none;
+	border: none;
 	border-radius: .2rem;
 	background: #0099ff;
 	cursor: pointer;
@@ -167,7 +167,7 @@ pre {
 	margin: 0 0 20px;
 }
 
-#copyLinkBt:active{
+#copyLinkBt:active {
 	opacity: .8;
 }
 
