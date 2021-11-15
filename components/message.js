@@ -141,15 +141,15 @@ class Message extends HTMLElement {
 		okBtn.innerText = 'Ok'
 		okBtn.onclick = () => {hideMessage()}
 
-		this.addEventListener('showMessage', (e) => {
-			// this.setAttribute('title', e.detail.title)
-			// this.setAttribute('message', e.detail.message)
-			messageHeader.textContent = e.detail.title
-			messageBody.textContent = e.detail.message
+		this.showMessage = (title, message) => {
+			// this.setAttribute('title', title)
+			// this.setAttribute('message', message)
+			messageHeader.textContent = title
+			messageBody.textContent = message
 			wrapper.style.display = 'flex'
 			shadowDiv.style.animation = 'fadeIn linear .4s 1'
 			messageDiv.style.animation = 'growUp ease-in-out .2s 1'
-		})
+		}
 
 		const hideMessage = () => {
 			messageHeader.textContent = ''
@@ -168,16 +168,6 @@ class Message extends HTMLElement {
 			wrapper.removeEventListener('animationend', removeWrapper)
 			wrapper.style.display = 'none'
 		}
-	}
-
-	showMessage(title, message) {
-		let event = new CustomEvent('showMessage', {
-			detail: {
-				title,
-				message
-			}
-		})
-		this.dispatchEvent(event)
 	}
 }
 
