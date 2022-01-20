@@ -14,7 +14,7 @@ class Message extends HTMLElement {
 				display: none;
 				align-items: center;
 				justify-content: center;
-				z-index: 2;
+				z-index: 3;
 			}
 
 			#shadow {
