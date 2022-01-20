@@ -1,0 +1,28 @@
+<svg viewBox="0 0 64 32" xmlns="http://www.w3.org/2000/svg">
+
+	<path fill="#202020" stroke="" stroke-width="0"
+		d="M0 1, L20.333 1, L30.333 15, L20.333 31.333, L20.333 31.333, L0 31.333, Z"
+	/>
+	<path fill="#181818" stroke="" stroke-width="0"
+		d="M0 1, L20.333 1, L30.333 15, L20.333 31.333 Z"
+	/>
+
+	<path fill="#202020" stroke="" stroke-width="0"
+		d="M22.333 0, L62.333 0, L52.333 14.333, L32.333 14.333, Z"
+	/>
+	<path fill="#181818" stroke="" stroke-width="0"
+		d="M42.333 0, L62.333 0, L52.333 14.333, Z"
+	/>
+
+
+	<path fill="#202020" stroke="" stroke-width="0"
+		d="M22.333 32, L32.333 15.777, L52.333 15.777, L62.333 32, Z"
+	/>
+	<path fill="#181818" stroke="" stroke-width="0"
+		d="M32.333 15.777, L52.333 15.777, L62.333 32, L42.333 32, Z"
+	/>
+	
+	<path fill="#202020" stroke="" stroke-width="0" 
+		d="M53.777 15, L64 1, L64 31.333, Z"
+	/>
+</svg>
