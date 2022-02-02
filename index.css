@@ -32,14 +32,14 @@
 }
 
 body {
-	background-color: #000;
+	background: radial-gradient(#161616,#000);
 	color: #ededed;
 	font-family: 'Roboto', sans-serif;
 }
 
 header {
 	/* display: none; */
-	background: linear-gradient(to bottom, #161616, #101010);
+	background: linear-gradient(to bottom, #161616dd, #101010ad);
 	box-shadow: 0 5px 5px #00000080;
 	padding: 10px;
 	z-index: 2;
@@ -64,7 +64,16 @@ section {
 	overflow: hidden;
 }
 
-#mouseSeeker {
+#canvas1{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(rgb(16,16,16),rgb(0, 0, 0));
+}
+
+/* #mouseSeeker {
 	position: absolute;
 	background: linear-gradient(to right, #0099ff, #77ff77, #ff3344, #930fda, #ff3344, #77ff77, #0099ff);
 	background-size: 1000%;
@@ -109,19 +118,19 @@ section {
 	background: url("pattern.svg");
 	background-size: 96px 48px;
 	z-index: 1;
-}
+} */
 
 .container {
 	z-index: 2;
 	margin: 40px auto;
-	background: #101010c0;
+	/* background: #101010c0; */
 	border-radius: .5rem;
 	padding: 10px 10px 20px;
 	box-sizing: border-box;
 	width: 80%;
 	max-width: 1280px;
 	overflow-x: auto;
-	box-shadow: 0 0 5px 2px #000000c0;
+	/* box-shadow: 0 0 5px 2px #000000c0; */
 }
 
 h2 {
