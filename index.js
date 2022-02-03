@@ -97,15 +97,23 @@ class Particle {
 		else if ((distance < (mouse.radius + this.size)) && (distance > (mouse.radius + this.size) / 1.5)) {
 			if (mouse.x < this.x && this.x < canvas.width - this.size * 2) {
 				this.x -= 1
+				if (this.directionX > 0)
+					this.directionX = -this.directionX
 			}
 			if (mouse.x > this.x && this.x > this.size * 2) {
 				this.x += 1
+				if (this.directionX < 0)
+					this.directionX = -this.directionX
 			}
 			if (mouse.y < this.y && this.y < canvas.height - this.size * 2) {
 				this.y -= 1
+				if (this.directionY > 0)
+					this.directionY = -this.directionY
 			}
 			if (mouse.y > this.y && this.y > this.size * 2) {
 				this.y += 1
+				if (this.directionY < 0)
+					this.directionY = -this.directionY
 			}
 		}
 		this.x += this.directionX
@@ -135,12 +143,12 @@ function init() {
 function animate() {
 	requestAnimationFrame(animate)
 	c.clearRect(0, 0, innerWidth, innerHeight)
-
+	
+	connect()
 	for (let i = 0; i < particlesArray.length; i++) {
 		particlesArray[i].update()
 	}
 
-	connect()
 }
 
 function connect() {
@@ -163,14 +171,14 @@ function connect() {
 		distance = ((particlesArray[a].x - mouse.x) * (particlesArray[a].x - mouse.x)) +
 			((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y))
 		if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-			if(mouseDown)
-			opacityValue = 1 - (distance / 25000)
+			if (mouseDown)
+				opacityValue = 1 - (distance / 25000)
 			else
-			opacityValue = 1 - (distance / 50000)
-			if(mouseDown)
-			c.strokeStyle = `rgba(102,0,51,${ opacityValue })`
+				opacityValue = 1 - (distance / 50000)
+			if (mouseDown)
+				c.strokeStyle = `rgba(102,0,51,${ opacityValue })`
 			else
-			c.strokeStyle = `rgba(0,51,102,${ opacityValue })`
+				c.strokeStyle = `rgba(0,51,102,${ opacityValue })`
 			c.lineWidth = 1
 			c.beginPath()
 			c.moveTo(particlesArray[a].x, particlesArray[a].y)
