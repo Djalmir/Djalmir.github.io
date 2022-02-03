@@ -39,9 +39,17 @@ window.addEventListener('mousemove', (e) => {
 	mouse.x = e.x
 	mouse.y = e.y
 })
-window.addEventListener('touchmove', (e)=>{
-	mouse.x = e.touches[e.touches.length-1].clientX
-	mouse.y = e.touches[e.touches.length-1].clientY
+// window.addEventListener('touchmove', (e) => {
+// 	mouse.x = e.touches[e.touches.length - 1].clientX
+// 	mouse.y = e.touches[e.touches.length - 1].clientY
+// })
+
+let mouseDown = false
+window.addEventListener('mousedown', () => {
+	mouseDown = true
+})
+window.addEventListener('mouseup', () => {
+	mouseDown = false
 })
 
 class Particle {
@@ -72,18 +80,32 @@ class Particle {
 		let dx = mouse.x - this.x
 		let dy = mouse.y - this.y
 		let distance = Math.sqrt(dx * dx + dy * dy)
-		if (distance < mouse.radius + this.size) {
-			if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
-				this.x += 10
+		if (mouseDown && distance < mouse.radius + this.size) {
+			if (mouse.x < this.x && this.x < canvas.width - this.size * 2) {
+				this.x += 2
 			}
-			if (mouse.x > this.x && this.x > this.size * 10) {
-				this.x -= 10
+			if (mouse.x > this.x && this.x > this.size * 2) {
+				this.x -= 2
 			}
-			if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
-				this.y += 10
+			if (mouse.y < this.y && this.y < canvas.height - this.size * 2) {
+				this.y += 2
 			}
-			if (mouse.y > this.y && this.y > this.size * 10) {
-				this.y -= 10
+			if (mouse.y > this.y && this.y > this.size * 2) {
+				this.y -= 2
+			}
+		}
+		else if ((distance < (mouse.radius + this.size)) && (distance > (mouse.radius + this.size) / 1.5)) {
+			if (mouse.x < this.x && this.x < canvas.width - this.size * 2) {
+				this.x -= 1
+			}
+			if (mouse.x > this.x && this.x > this.size * 2) {
+				this.x += 1
+			}
+			if (mouse.y < this.y && this.y < canvas.height - this.size * 2) {
+				this.y -= 1
+			}
+			if (mouse.y > this.y && this.y > this.size * 2) {
+				this.y += 1
 			}
 		}
 		this.x += this.directionX
@@ -137,6 +159,25 @@ function connect() {
 				c.stroke()
 			}
 		}
+
+		distance = ((particlesArray[a].x - mouse.x) * (particlesArray[a].x - mouse.x)) +
+			((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y))
+		if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+			if(mouseDown)
+			opacityValue = 1 - (distance / 25000)
+			else
+			opacityValue = 1 - (distance / 50000)
+			if(mouseDown)
+			c.strokeStyle = `rgba(102,0,51,${ opacityValue })`
+			else
+			c.strokeStyle = `rgba(0,51,102,${ opacityValue })`
+			c.lineWidth = 1
+			c.beginPath()
+			c.moveTo(particlesArray[a].x, particlesArray[a].y)
+			c.lineTo(mouse.x, mouse.y)
+			c.stroke()
+		}
+
 	}
 }
 
