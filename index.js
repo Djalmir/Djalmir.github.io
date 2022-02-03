@@ -83,15 +83,23 @@ class Particle {
 		if (mouseDown && distance < mouse.radius + this.size) {
 			if (mouse.x < this.x && this.x < canvas.width - this.size * 2) {
 				this.x += 2
+				if (this.directionX < 0)
+					this.directionX = -this.directionX
 			}
 			if (mouse.x > this.x && this.x > this.size * 2) {
 				this.x -= 2
+				if (this.directionX > 0)
+					this.directionX = -this.directionX
 			}
 			if (mouse.y < this.y && this.y < canvas.height - this.size * 2) {
 				this.y += 2
+				if (this.directionY < 0)
+					this.directionY = -this.directionY
 			}
 			if (mouse.y > this.y && this.y > this.size * 2) {
 				this.y -= 2
+				if (this.directionY > 0)
+					this.directionY = -this.directionY
 			}
 		}
 		else if ((distance < (mouse.radius + this.size)) && (distance > (mouse.radius + this.size) / 1.5)) {
@@ -143,15 +151,7 @@ function init() {
 function animate() {
 	requestAnimationFrame(animate)
 	c.clearRect(0, 0, innerWidth, innerHeight)
-	
-	connect()
-	for (let i = 0; i < particlesArray.length; i++) {
-		particlesArray[i].update()
-	}
 
-}
-
-function connect() {
 	let opacityValue = 1
 	for (let a = 0; a < particlesArray.length; a++) {
 		for (let b = a; b < particlesArray.length; b++) {
@@ -186,7 +186,9 @@ function connect() {
 			c.stroke()
 		}
 
+		particlesArray[a].update()
 	}
+
 }
 
 window.addEventListener('resize', () => {
