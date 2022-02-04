@@ -207,3 +207,34 @@ window.addEventListener('mouseout', () => {
 
 init()
 animate()
+
+let showingInterface = true
+function showHideInterface() {
+	let interfaceElements = [document.querySelector('header'), ...Array.from(document.querySelectorAll('.container')), document.querySelector('footer')]
+	showingInterface = !showingInterface
+	if (showingInterface) {
+		hideInterfaceBtSpan.innerText = 'Hide Interface'
+		hideInterfaceBt.style.position = ''
+		hideInterfaceBt.style.right = ''
+		hideInterfaceBt.style.bottom = ''
+		document.querySelector('footer').appendChild(hideInterfaceBt)
+		// document.body.removeChild(hideInterfaceBt)
+		interfaceElements.map(el => {
+			el.style.display = ''
+		})
+		window.scrollTo(0, document.body.scrollHeight)
+		eyeImg.style.opacity = '.5'
+	}
+	else {
+		interfaceElements.map(el => {
+			el.style.display = 'none'
+		})
+		hideInterfaceBtSpan.innerText = 'Show Interface'
+		hideInterfaceBt.style.position = 'fixed'
+		hideInterfaceBt.style.right = '8px'
+		hideInterfaceBt.style.bottom = '8px'
+		document.body.appendChild(hideInterfaceBt)
+		// document.querySelector('footer').removeChild(hideInterfaceBt)
+		eyeImg.style.opacity = '1'
+	}
+}
