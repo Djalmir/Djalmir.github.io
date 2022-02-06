@@ -80,48 +80,39 @@ class Particle {
 		let dx = mouse.x - this.x
 		let dy = mouse.y - this.y
 		let distance = Math.sqrt(dx * dx + dy * dy)
+		let forceDirectionX = dx / distance
+		let forceDirectionY = dy / distance
+		let force = (mouse.radius - distance) / mouse.radius
+		let directionX = forceDirectionX * force * 10
+		let directionY = forceDirectionY * force * 10
 		if (mouseDown && distance < mouse.radius + this.size) {
-			if (mouse.x < this.x && this.x < canvas.width - this.size * 2) {
-				this.x += 2
-				if (this.directionX < 0)
-					this.directionX = -this.directionX
-			}
-			if (mouse.x > this.x && this.x > this.size * 2) {
-				this.x -= 2
-				if (this.directionX > 0)
-					this.directionX = -this.directionX
-			}
-			if (mouse.y < this.y && this.y < canvas.height - this.size * 2) {
-				this.y += 2
-				if (this.directionY < 0)
-					this.directionY = -this.directionY
-			}
-			if (mouse.y > this.y && this.y > this.size * 2) {
-				this.y -= 2
-				if (this.directionY > 0)
-					this.directionY = -this.directionY
-			}
+			this.x -= directionX
+			this.y -= directionY
 		}
 		else if ((distance < (mouse.radius + this.size)) && (distance > (mouse.radius + this.size) / 1.5)) {
 			if (mouse.x < this.x && this.x < canvas.width - this.size * 2) {
-				this.x -= 1
 				if (this.directionX > 0)
 					this.directionX = -this.directionX
+				else
+					this.x += directionX
 			}
 			if (mouse.x > this.x && this.x > this.size * 2) {
-				this.x += 1
 				if (this.directionX < 0)
 					this.directionX = -this.directionX
+				else
+					this.x += directionX
 			}
 			if (mouse.y < this.y && this.y < canvas.height - this.size * 2) {
-				this.y -= 1
 				if (this.directionY > 0)
 					this.directionY = -this.directionY
+				else
+					this.y += directionY
 			}
 			if (mouse.y > this.y && this.y > this.size * 2) {
-				this.y += 1
 				if (this.directionY < 0)
 					this.directionY = -this.directionY
+				else
+					this.y += directionY
 			}
 		}
 		this.x += this.directionX
