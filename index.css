@@ -130,7 +130,7 @@ h1 {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
+	width: 100vw;
 	height: 100vh;
 	background: radial-gradient(rgb(16, 16, 16), rgb(0, 0, 0));
 }
