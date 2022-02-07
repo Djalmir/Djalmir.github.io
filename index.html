@@ -12,12 +12,35 @@
 	</head>
 
 	<body>
-		<canvas id="canvas1"></canvas>
 		<my-message id="my-message"></my-message>
 		<header>
-			<h1>Welcome to Djalmir's projects page</h1>
+			<h1>Djalmir's Projects</h1>
 		</header>
-		<section>
+		<canvas id="canvas1"></canvas>
+		<section id="section1" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')" ontouchstart="this.classList.add('hovered')" ontouchend="this.classList.remove('hovered')">
+			<div>
+				<iframe src="https://djalmir.github.io/matrixSelfie/" frameborder="0"></iframe>
+				<div id="section1Text">
+					<b>Welcome!</b>
+					<p>It's really nice to see you here!</p>
+					<p>
+						I'm Djalmir Miodutzki. And in this site you can get access to many of my personal projects.
+					</p>
+					<p>If you wish to see the codes, feel free to browse all my repositories in <a href="https://github.com/Djalmir?tab=repositories" target="_blank">Github</a></p>
+					<br>
+					<hr>
+					<b>About Me:</b>
+					<p>
+						I learned to program with Delphi when I was 16 years old. And I had fun with this language for a few years, until I discovered Javascript, which I fell in love with.
+						Nowadays I develop games with Javascript as a hobby, without using libraries or frameworks.
+					</p>
+					<p>
+						Learning is constant and enjoyable!
+					</p>
+				</div>
+			</div>
+		</section>
+		<section id="section2">
 			<!-- <div id="mouseSeeker"></div>
 			<div id="background"></div> -->
 			<div class="container">

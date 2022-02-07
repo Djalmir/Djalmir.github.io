@@ -183,8 +183,8 @@ function animate() {
 }
 
 window.addEventListener('resize', () => {
-	canvas.width = innerWidth
-	canvas.height = innerHeight
+	canvas.width = window.innerWidth
+	canvas.height = window.innerHeight
 	mouse.radius = ((canvas.height / 80) * (canvas.width / 80))
 	if (mouse.radius > 150)
 		mouse.radius = 150
@@ -201,7 +201,7 @@ animate()
 
 let showingInterface = true
 function showHideInterface() {
-	let interfaceElements = [document.querySelector('header'), ...Array.from(document.querySelectorAll('.container')), document.querySelector('footer')]
+	let interfaceElements = [document.querySelector('header'), ...Array.from(document.querySelectorAll('section')), document.querySelector('footer')]
 	showingInterface = !showingInterface
 	if (showingInterface) {
 		hideInterfaceBtSpan.innerText = 'Hide Interface'
