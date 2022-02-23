@@ -30,7 +30,7 @@ let particlesArray
 let mouse = {
 	x: undefined,
 	y: undefined,
-	radius: (canvas.height / 80) * (canvas.width / 80)
+	radius: (canvas.height / 40) * (canvas.width / 40)
 }
 if (mouse.radius > 150)
 	mouse.radius = 150
@@ -39,17 +39,25 @@ window.addEventListener('mousemove', (e) => {
 	mouse.x = e.x
 	mouse.y = e.y
 })
-// window.addEventListener('touchmove', (e) => {
-// 	mouse.x = e.touches[e.touches.length - 1].clientX
-// 	mouse.y = e.touches[e.touches.length - 1].clientY
-// })
+window.addEventListener('touchmove', (e) => {
+	mouse.x = e.touches[e.touches.length - 1].clientX
+	mouse.y = e.touches[e.touches.length - 1].clientY
+})
 
 let mouseDown = false
 window.addEventListener('mousedown', () => {
 	mouseDown = true
 })
+window.addEventListener('touchstart', ()=>{
+	mouseDown = true
+})
 window.addEventListener('mouseup', () => {
 	mouseDown = false
+})
+window.addEventListener('touchend', ()=>{
+	mouseDown = false
+	mouse.x = undefined
+	mouse.y = undefined
 })
 
 class Particle {
@@ -70,10 +78,20 @@ class Particle {
 	}
 
 	update() {
-		if (this.x > canvas.width || this.x < 0) {
+		if (this.x - this.size < 0) {
+			this.x = 0 + this.size
 			this.directionX = -this.directionX
 		}
-		if (this.y > canvas.height || this.y < 0) {
+		if (this.x + this.size > canvas.width) {
+			this.x = canvas.width - this.size
+			this.directionX = -this.directionX
+		}
+		if (this.y - this.size < 0) {
+			this.y = 0 + this.size
+			this.directionY = -this.directionY
+		}
+		if (this.y + this.size > canvas.height) {
+			this.y = canvas.height - this.size
 			this.directionY = -this.directionY
 		}
 
@@ -94,25 +112,25 @@ class Particle {
 				if (this.directionX > 0)
 					this.directionX = -this.directionX
 				else
-					this.x += directionX
+					this.x += directionX / 2
 			}
 			if (mouse.x > this.x && this.x > this.size * 2) {
 				if (this.directionX < 0)
 					this.directionX = -this.directionX
 				else
-					this.x += directionX
+					this.x += directionX / 2
 			}
 			if (mouse.y < this.y && this.y < canvas.height - this.size * 2) {
 				if (this.directionY > 0)
 					this.directionY = -this.directionY
 				else
-					this.y += directionY
+					this.y += directionY / 2
 			}
 			if (mouse.y > this.y && this.y > this.size * 2) {
 				if (this.directionY < 0)
 					this.directionY = -this.directionY
 				else
-					this.y += directionY
+					this.y += directionY / 2
 			}
 		}
 		this.x += this.directionX
@@ -123,16 +141,16 @@ class Particle {
 
 function init() {
 	particlesArray = []
-	let numberOfParticles = (canvas.height * canvas.width) / 2000
-	if (numberOfParticles > 200)
-		numberOfParticles = 200
+	let numberOfParticles = Math.floor((canvas.height * canvas.width) / 5000)
+	if (numberOfParticles > 133)
+		numberOfParticles = 133
 	for (let i = 0; i < numberOfParticles; i++) {
 		let size = (Math.random() * 2) + 1
 		// let size = 1
 		let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2)
 		let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2)
-		let directionX = (Math.random() * 1) - .5
-		let directionY = (Math.random() * 1) - .5
+		let directionX = (Math.random() * 1.5) - .75
+		let directionY = (Math.random() * 1.5) - .75
 		let color = 'rgb(0, 153, 255)'
 
 		particlesArray.push(new Particle(x, y, directionX, directionY, size, color))
@@ -141,43 +159,45 @@ function init() {
 
 function animate() {
 	requestAnimationFrame(animate)
-	c.clearRect(0, 0, innerWidth, innerHeight)
+	if (window.scrollY + window.innerHeight >= section2.offsetTop) {
+		c.clearRect(0, 0, innerWidth, innerHeight)
 
-	let opacityValue = 1
-	for (let a = 0; a < particlesArray.length; a++) {
-		for (let b = a; b < particlesArray.length; b++) {
-			let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
-				((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y))
+		let opacityValue = 1
+		for (let a = 0; a < particlesArray.length; a++) {
+			for (let b = a; b < particlesArray.length; b++) {
+				let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
+					((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y))
+				if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+					opacityValue = 1 - (distance / 10000)
+					c.strokeStyle = `rgba(0,51,102,${ opacityValue })`
+					c.lineWidth = 1
+					c.beginPath()
+					c.moveTo(particlesArray[a].x, particlesArray[a].y)
+					c.lineTo(particlesArray[b].x, particlesArray[b].y)
+					c.stroke()
+				}
+			}
+
+			distance = ((particlesArray[a].x - mouse.x) * (particlesArray[a].x - mouse.x)) +
+				((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y))
 			if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-				opacityValue = 1 - (distance / 10000)
-				c.strokeStyle = `rgba(0,51,102,${ opacityValue })`
+				if (mouseDown)
+					opacityValue = 1 - (distance / 25000)
+				else
+					opacityValue = 1 - (distance / 50000)
+				if (mouseDown)
+					c.strokeStyle = `rgba(102,0,51,${ opacityValue })`
+				else
+					c.strokeStyle = `rgba(0,51,102,${ opacityValue })`
 				c.lineWidth = 1
 				c.beginPath()
 				c.moveTo(particlesArray[a].x, particlesArray[a].y)
-				c.lineTo(particlesArray[b].x, particlesArray[b].y)
+				c.lineTo(mouse.x, mouse.y)
 				c.stroke()
 			}
-		}
 
-		distance = ((particlesArray[a].x - mouse.x) * (particlesArray[a].x - mouse.x)) +
-			((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y))
-		if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-			if (mouseDown)
-				opacityValue = 1 - (distance / 25000)
-			else
-				opacityValue = 1 - (distance / 50000)
-			if (mouseDown)
-				c.strokeStyle = `rgba(102,0,51,${ opacityValue })`
-			else
-				c.strokeStyle = `rgba(0,51,102,${ opacityValue })`
-			c.lineWidth = 1
-			c.beginPath()
-			c.moveTo(particlesArray[a].x, particlesArray[a].y)
-			c.lineTo(mouse.x, mouse.y)
-			c.stroke()
+			particlesArray[a].update()
 		}
-
-		particlesArray[a].update()
 	}
 
 }
@@ -201,7 +221,7 @@ animate()
 
 let showingInterface = true
 function showHideInterface() {
-	let interfaceElements = [document.querySelector('header'), ...Array.from(document.querySelectorAll('section')), document.querySelector('footer')]
+	let interfaceElements = [...Array.from(document.querySelectorAll('section')), document.querySelector('footer')]
 	showingInterface = !showingInterface
 	if (showingInterface) {
 		hideInterfaceBtSpan.innerText = 'Hide Interface'
@@ -229,3 +249,11 @@ function showHideInterface() {
 		eyeImg.style.opacity = '1'
 	}
 }
+
+window.addEventListener('scroll', () => {
+	if (window.scrollY > selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') != '')
+		selfie.setAttribute('src', '')
+	else if (window.scrollY <= selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') == '') {
+		selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
+	}
+})

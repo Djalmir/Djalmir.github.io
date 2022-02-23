@@ -9,6 +9,7 @@
 	user-select: none;
 	box-sizing: border-box;
 	letter-spacing: 1.2px;
+	scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
@@ -36,7 +37,6 @@
 }
 
 body {
-	background: radial-gradient(#161616, #000);
 	color: #ededed;
 	font-family: 'Roboto', sans-serif;
 	position: absolute;
@@ -44,21 +44,41 @@ body {
 	left: 0;
 	width: 100%;
 	min-height: 100vh;
-
 }
 
-header {
-	/* display: none; */
-	background: #101010d8;
-	box-shadow: 0 5px 5px 2px #000000a8;
-	padding: 10px;
+#section1 {
+	padding: 50px 20px 100px;
 	box-sizing: border-box;
-	z-index: 2;
 	position: relative;
+	top: 0;
+	left: 0;
+	margin: 0 0 50px;
+	width: 100%;
+	min-height: 100vh;
+	background: radial-gradient(#161616, #090909 50%);
+	z-index: 1;
 	display: flex;
-	align-items: center;
 	justify-content: center;
-	gap: 13px;
+	transition: top 2s;
+}
+
+#section1 > ::after{
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #090909;
+	border-radius: 50%;
+	transform: translateY(-50%);
+	box-shadow: 0 10px 5px 2px #000000d8;
+}
+
+#section1Container {
+	width: 90%;
+	max-width: 800px;
+	text-align: center;
 }
 
 h1 {
@@ -67,43 +87,38 @@ h1 {
 	font-size: 26px;
 }
 
-#section1 {
-	padding: 20px;
-	box-sizing: border-box;
-	left: 50%;
-	transform: translate(-50%);
-	top: 0;
-	margin: calc(50vh - 150px) 0;
-	width: 80%;
-	max-width: 800px;
-	position: relative;
-	background: #101010d8;
-	border-radius: .5rem;
-	box-shadow: 0 0 5px 2px #000000a8;
-	display: flex;
+#welcomeMsg {
+	text-align: center;
 }
 
-#section1>div {
+#section1innerContainer {
+	margin-top: 100px;
 	z-index: 1;
-	display: flex;
+	/* display: flex;
 	flex-wrap: wrap;
-	gap: 20px;
+	align-items: center;
+	justify-content: center;
+	gap: 5px; */
 }
 
 #section1 iframe {
 	border-radius: 50%;
-	margin: 0 auto;
-	width: 200px;
-	height: 200px;
-	border: 2px solid #013;
-	/* opacity: .7; */
+	margin: 17px;
+	width: 220px;
+	height: 220px;
+	border: 2px solid #222;
+	box-shadow: 7px 7px 5px #000;
+	shape-outside: circle();
+	background: linear-gradient(to bottom right, #262626, #090909);
 }
 
 #section1Text {
 	flex: 1;
 	min-width: 200px;
 	width: 100%;
+	height: 100%;
 	overflow: auto;
+	text-align: center;
 }
 
 #section1 a {
@@ -113,17 +128,51 @@ h1 {
 	display: inline-block;
 }
 
-#section1 b {
-	font-size: 20px;
+#scrollDownBt {
+	width: 80px;
+	height: 5px;
+	padding: 0;
+	position: absolute;
+	bottom: 35px;
+	left: 50%;
+	transform-origin: center;
+	transform: translateX(-50%);
+	box-shadow: 7px 7px 5px #000;
+	z-index: 1;
 }
 
-#section2 {
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	position: relative;
-	width: 100%;
-	overflow: hidden;
+#scrollDownBt::before {
+	content: '';
+	position: absolute;
+	top: 95%;
+	left: 50%;
+	transform: translate(-99%);
+	width: 49%;
+	height: 20px;
+	background: linear-gradient(to top right, transparent 50%, #0099ff 51%);
+	filter: drop-shadow(7px 7px 2px #000);
+}
+
+#scrollDownBt::after {
+	content: '';
+	position: absolute;
+	top: 95%;
+	left: 50%;
+	/* transform: translate(100%); */
+	width: 49%;
+	height: 20px;
+	background: linear-gradient(to top left, transparent 50%, #0099ff 51%);
+	filter: drop-shadow(7px 7px 2px #000);
+}
+
+#scrollDownBt:active {
+	box-shadow: 2px 2px 5px #000;
+	transform: scale(.98) translateX(-50%);
+}
+
+#scrollDownBt:active::before,
+#scrollDownBt:active::after {
+	filter: drop-shadow(2px 2px 1px #000);
 }
 
 #canvas1 {
@@ -135,13 +184,24 @@ h1 {
 	background: radial-gradient(rgb(16, 16, 16), rgb(0, 0, 0));
 }
 
+#section2 {
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	top: 0;
+	width: 100%;
+	overflow: hidden;
+	z-index: 0;
+}
+
 .container {
 	z-index: 2;
 	margin: 40px auto;
 	border-radius: .5rem;
 	padding: 10px 10px 20px;
 	box-sizing: border-box;
-	width: 80%;
+	width: 96%;
 	max-width: 1280px;
 	overflow-x: auto;
 }
@@ -258,22 +318,26 @@ pre {
 #copyLinkBt {
 	width: 100%;
 	/* max-width: 360px; */
+	margin: 0 0 20px;
+}
+
+.blueBt {
 	border: none;
 	border-radius: .2rem;
 	background: #0099ff;
 	cursor: pointer;
 	padding: 8px 16px;
 	box-sizing: border-box;
-	margin: 0 0 20px;
 	opacity: .8;
 	font-weight: bolder;
+	letter-spacing: 1px;
 }
 
-#copyLinkBt:hover {
+.blueBt:hover {
 	opacity: 1;
 }
 
-#copyLinkBt:active {
+.blueBt:active {
 	opacity: .8;
 	transform: scale(.98);
 }
@@ -348,4 +412,16 @@ footer a {
 #eyeImg {
 	width: 24px;
 	opacity: .5;
+}
+
+@media(min-width: 400px) {
+
+	#section1 iframe {
+		float: left;
+	}
+
+	#section1Text {
+		text-align: left;
+	}
+
 }
