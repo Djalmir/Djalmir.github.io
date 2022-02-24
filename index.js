@@ -7,6 +7,15 @@ if (navigator.hardwareConcurrency < 6) {
 	section1Text.insertBefore(img, iframe)
 	section1Text.removeChild(iframe)
 }
+else {
+	window.addEventListener('scroll', () => {
+		if (window.scrollY > selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') != '')
+			selfie.setAttribute('src', '')
+		else if (window.scrollY <= selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') == '') {
+			selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
+		}
+	})
+}
 
 function copyLink() {
 	navigator.clipboard.writeText(document.querySelector('#cmLink').innerText)
@@ -34,7 +43,7 @@ let mouse = {
 	y: undefined,
 	radius: (canvas.height / 80) * (canvas.width / 80)
 }
-if(mouse.radius < 50)
+if (mouse.radius < 50)
 	mouse.radius = 50
 if (mouse.radius > 150)
 	mouse.radius = 150
@@ -225,7 +234,7 @@ animate()
 
 let showingInterface = true
 function showHideInterface() {
-	let interfaceElements = [...Array.from(document.querySelectorAll('section')), document.querySelector('#footerContainer'),document.querySelector('footer')]
+	let interfaceElements = [...Array.from(document.querySelectorAll('section')), document.querySelector('#footerContainer'), document.querySelector('footer')]
 	showingInterface = !showingInterface
 	if (showingInterface) {
 		hideInterfaceBtSpan.innerText = 'Hide Interface'
@@ -254,10 +263,10 @@ function showHideInterface() {
 	}
 }
 
-// window.addEventListener('scroll', () => {
-// 	if (window.scrollY > selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') != '')
-// 		selfie.setAttribute('src', '')
-// 	else if (window.scrollY <= selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') == '') {
-// 		selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
-// 	}
-// })
+window.addEventListener('scroll', () => {
+	if (window.scrollY > selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') != '')
+		selfie.setAttribute('src', '')
+	else if (window.scrollY <= selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') == '') {
+		selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
+	}
+})
