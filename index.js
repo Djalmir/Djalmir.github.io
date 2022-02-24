@@ -153,8 +153,8 @@ function init() {
 		// let size = 1
 		let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2)
 		let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2)
-		let directionX = (Math.random() * 1.5) - .75
-		let directionY = (Math.random() * 1.5) - .75
+		let directionX = (Math.random() * 2) - 1
+		let directionY = (Math.random() * 2) - 1
 		let color = 'rgb(0, 153, 255)'
 
 		particlesArray.push(new Particle(x, y, directionX, directionY, size, color))
