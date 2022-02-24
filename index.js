@@ -241,6 +241,7 @@ function showHideInterface() {
 		hideInterfaceBt.style.position = ''
 		hideInterfaceBt.style.right = ''
 		hideInterfaceBt.style.bottom = ''
+		selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
 		document.querySelector('footer').appendChild(hideInterfaceBt)
 		// document.body.removeChild(hideInterfaceBt)
 		interfaceElements.map(el => {
@@ -253,20 +254,13 @@ function showHideInterface() {
 		interfaceElements.map(el => {
 			el.style.display = 'none'
 		})
+		selfie.setAttribute('src', '')
+		document.body.appendChild(hideInterfaceBt)
 		hideInterfaceBtSpan.innerText = 'Show Interface'
 		hideInterfaceBt.style.position = 'fixed'
 		hideInterfaceBt.style.right = '8px'
 		hideInterfaceBt.style.bottom = '8px'
-		document.body.appendChild(hideInterfaceBt)
 		// document.querySelector('footer').removeChild(hideInterfaceBt)
 		eyeImg.style.opacity = '1'
 	}
 }
-
-window.addEventListener('scroll', () => {
-	if (window.scrollY > selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') != '')
-		selfie.setAttribute('src', '')
-	else if (window.scrollY <= selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') == '') {
-		selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
-	}
-})
