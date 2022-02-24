@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<meta name="theme-color" content="#202020">
+		<meta name="theme-color" content="#090909">
 		<link rel="stylesheet" href="index.css">
 		<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
 		<title>Djalmir's Projects</title>
@@ -25,26 +25,26 @@
 							<br />
 							I learned to program with Delphi when I was 16 years old. And I had fun with this language for a few years, until I discovered JavaScript, which I fell in love with!
 							I developed some personal projects with NodeJS on the backend and HTML, CSS and pure JavaScript on the frontend. From landing pages to 2D games. These projects have received few updates since I got my first job as a frontend developer. A position that, with pride, gratitude and joy, I occupy until now!<br />
-							<br/>
+							<br />
 							Learning is constant and enjoyable!
 						</p>
 					</div>
 				</div>
 				<br>
 				<p>
-					In this site you can get access to some of my personal projects.<br/>
+					In this site you can get access to some of my personal projects.<br />
 					If you wish to see the codes, feel free to browse all my repositories in <a href="https://github.com/Djalmir?tab=repositories" target="_blank">Github</a>
 				</p>
 
-				<button id="scrollDownBt" class="blueBt" onclick="section2.scrollIntoView()"></button>
+				<button id="scrollDownBt" class="blueBt" onclick="document.querySelector('.h1Container').scrollIntoView()"></button>
 			</div>
 		</section>
 		<canvas id="canvas1"></canvas>
 		<section id="section2">
-			<!-- <div id="mouseSeeker"></div>
-			<div id="background"></div> -->
+			<div class="h1Container">
+				<h1>The Projects</h1>
+			</div>
 			<div class="container">
-				<!-- <h2>Sites</h2> -->
 				<ul>
 					<a href="https://djalmir.github.io/Home" target="_blank">
 						<li onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')" ontouchstart="this.classList.add('hovered')" ontouchend="this.classList.remove('hovered')">
@@ -180,7 +180,6 @@
 			</div>
 
 			<div class="container">
-				<!-- <h2>Tools</h2> -->
 				<ul>
 					<li style="cursor: default;" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')" ontouchstart="this.classList.add('hovered')" ontouchend="this.classList.remove('hovered')">
 						<div>
@@ -216,19 +215,21 @@
 			</div>
 
 		</section>
-		<footer>
-			<small>
-				<span>Technologies used in this site:</span><br />
-				<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
-				<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
-				<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
-			</small>
-			<span>Copyright &copy; 2021 - by <a href="https://github.com/Djalmir" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a></span>
-			<button id="hideInterfaceBt" onclick="showHideInterface()">
-				<span id="hideInterfaceBtSpan">Hide Interface</span>
-				<img src="eye.svg" id="eyeImg" alt="eye image">
-			</button>
-		</footer>
+		<div id="footerContainer">
+			<footer>
+				<small>
+					<span>Technologies used in this site:</span><br />
+					<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
+					<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
+					<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
+				</small>
+				<span>Copyright &copy; 2021 - by <a href="https://github.com/Djalmir" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a></span>
+				<button id="hideInterfaceBt" onclick="showHideInterface()">
+					<span id="hideInterfaceBtSpan">Hide Interface</span>
+					<img src="eye.svg" id="eyeImg" alt="eye image">
+				</button>
+			</footer>
+		</div>
 
 		<script src="https://cdn.jsdelivr.net/gh/Djalmir/consoleMobile@0.1.8/console.js"></script>
 		<script src="index.js"></script>

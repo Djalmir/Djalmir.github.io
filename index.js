@@ -1,10 +1,12 @@
-// function move(e) {
-// 	mouseSeeker.style.top = (e.touches ? e.touches[e.touches.length - 1].clientY : e.clientY) - 50 + window.scrollY + 'px'
-// 	mouseSeeker.style.left = (e.touches ? e.touches[e.touches.length - 1].clientX : e.clientX) + window.scrollX + 'px'
-// 	e.preventDefault()
-// }
-// document.onmousemove = move
-// document.ontouchmove = move
+if (navigator.hardwareConcurrency < 6) {
+	let img = document.createElement('img')
+	img.id = 'selfie'
+	img.src = "Dj.png"
+	img.alt = 'Foto de Djalmir Miodutzki'
+	let iframe = section1Text.querySelector('#selfie')
+	section1Text.insertBefore(img, iframe)
+	section1Text.removeChild(iframe)
+}
 
 function copyLink() {
 	navigator.clipboard.writeText(document.querySelector('#cmLink').innerText)
@@ -30,8 +32,10 @@ let particlesArray
 let mouse = {
 	x: undefined,
 	y: undefined,
-	radius: (canvas.height / 40) * (canvas.width / 40)
+	radius: (canvas.height / 80) * (canvas.width / 80)
 }
+if(mouse.radius < 50)
+	mouse.radius = 50
 if (mouse.radius > 150)
 	mouse.radius = 150
 
@@ -48,13 +52,13 @@ let mouseDown = false
 window.addEventListener('mousedown', () => {
 	mouseDown = true
 })
-window.addEventListener('touchstart', ()=>{
+window.addEventListener('touchstart', () => {
 	mouseDown = true
 })
 window.addEventListener('mouseup', () => {
 	mouseDown = false
 })
-window.addEventListener('touchend', ()=>{
+window.addEventListener('touchend', () => {
 	mouseDown = false
 	mouse.x = undefined
 	mouse.y = undefined
@@ -221,7 +225,7 @@ animate()
 
 let showingInterface = true
 function showHideInterface() {
-	let interfaceElements = [...Array.from(document.querySelectorAll('section')), document.querySelector('footer')]
+	let interfaceElements = [...Array.from(document.querySelectorAll('section')), document.querySelector('#footerContainer'),document.querySelector('footer')]
 	showingInterface = !showingInterface
 	if (showingInterface) {
 		hideInterfaceBtSpan.innerText = 'Hide Interface'
@@ -233,7 +237,7 @@ function showHideInterface() {
 		interfaceElements.map(el => {
 			el.style.display = ''
 		})
-		window.scrollTo(0, document.body.scrollHeight)
+		// window.scrollTo(0, document.body.scrollHeight)
 		eyeImg.style.opacity = '.5'
 	}
 	else {
@@ -250,10 +254,10 @@ function showHideInterface() {
 	}
 }
 
-window.addEventListener('scroll', () => {
-	if (window.scrollY > selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') != '')
-		selfie.setAttribute('src', '')
-	else if (window.scrollY <= selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') == '') {
-		selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
-	}
-})
+// window.addEventListener('scroll', () => {
+// 	if (window.scrollY > selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') != '')
+// 		selfie.setAttribute('src', '')
+// 	else if (window.scrollY <= selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') == '') {
+// 		selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
+// 	}
+// })
