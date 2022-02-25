@@ -1,21 +1,330 @@
-if (navigator.hardwareConcurrency < 6) {
-	let img = document.createElement('img')
-	img.id = 'selfie'
-	img.src = "Dj.png"
-	img.alt = 'Foto de Djalmir Miodutzki'
-	let iframe = section1Text.querySelector('#selfie')
-	section1Text.insertBefore(img, iframe)
-	section1Text.removeChild(iframe)
+const matrixCanvas = document.querySelector('#matrixCanvas')
+const matrixC = matrixCanvas.getContext('2d')
+
+matrixCanvas.width = 210
+matrixCanvas.height = 210
+
+let BrazilFlag = matrixC.createRadialGradient(matrixCanvas.width / 2, matrixCanvas.height / 2, 50, matrixCanvas.width / 2, matrixCanvas.height / 2, 100)
+BrazilFlag.addColorStop(0, '#0033ff')
+BrazilFlag.addColorStop(0.5, '#ffff00')
+BrazilFlag.addColorStop(1, '#00ff00')
+
+class Symbol {
+	constructor(x, y, fontSize, canvasHeight) {
+		// this.characters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+		this.characters = '01'
+		this.x = x
+		this.y = y
+		this.fontSize = fontSize
+		this.text = ''
+		this.canvasHeight = canvasHeight
+	}
+	draw(context) {
+		this.text = this.characters.charAt(Math.floor(Math.random() * this.characters.length))
+		context.fillText(this.text, this.x * this.fontSize, this.y * this.fontSize)
+		if (this.y * this.fontSize > this.canvasHeight && Math.random() > .9) {
+			this.y = 0
+		}
+		else {
+			this.y += 1
+		}
+	}
 }
-else {
-	window.addEventListener('scroll', () => {
-		if (window.scrollY > selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') != '') {
-			selfie.setAttribute('src', '')
+
+class Effect {
+	constructor(canvasWidth, canvasHeight) {
+		this.canvasWidth = canvasWidth
+		this.canvasHeight = canvasHeight
+		this.fontSize = 10
+		this.columns = this.canvasWidth / this.fontSize
+		this.symbols = []
+		this.#initialize()
+	}
+
+	#initialize() {
+		for (let i = 0; i < this.columns; i++) {
+			this.symbols[i] = new Symbol(i, this.canvasHeight, this.fontSize, this.canvasHeight)
 		}
-		else if (window.scrollY <= selfie.offsetTop + selfie.offsetHeight && selfie.getAttribute('src') == '' && showingInterface) {
-			selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
+	}
+
+	resize(width, height) {
+		this.canvasWidth = width
+		this.canvasHeight = height
+		this.columns = this.canvasWidth / this.fontSize
+		this.symbols = []
+		this.#initialize()
+	}
+}
+
+const effect = new Effect(matrixCanvas.width, matrixCanvas.height)
+
+const canvas1 = document.querySelector('#canvas1')
+const c1 = canvas1.getContext('2d')
+canvas1.width = window.innerWidth
+canvas1.height = window.innerHeight
+
+let particlesArray1
+
+let mouse1 = {
+	x: undefined,
+	y: undefined,
+	radius: (canvas1.height / 80) * (canvas1.width / 80)
+}
+if (mouse1.radius < 50)
+	mouse1.radius = 50
+if (mouse1.radius > 150)
+	mouse1.radius = 150
+
+window.addEventListener('mousemove', (e) => {
+	mouse1.x = e.x
+	mouse1.y = e.y
+})
+window.addEventListener('touchmove', (e) => {
+	mouse1.x = e.touches[e.touches.length - 1].clientX
+	mouse1.y = e.touches[e.touches.length - 1].clientY
+})
+
+let mouseDown = false
+window.addEventListener('mousedown', () => {
+	mouseDown = true
+})
+window.addEventListener('touchstart', () => {
+	mouseDown = true
+})
+window.addEventListener('mouseup', () => {
+	mouseDown = false
+})
+window.addEventListener('touchend', () => {
+	mouseDown = false
+	mouse1.x = undefined
+	mouse1.y = undefined
+})
+
+class Particle1 {
+	constructor(x, y, directionX, directionY, size, color) {
+		this.x = x
+		this.y = y
+		this.directionX = directionX
+		this.directionY = directionY
+		this.size = size
+		this.color = color
+	}
+
+	draw() {
+		c1.beginPath()
+		c1.arc(this.x, this.y, this.size, 0, Math.PI * 2, false)
+		c1.fillStyle = this.color
+		c1.fill()
+	}
+
+	update() {
+		if (this.x - this.size < 0) {
+			this.x = 0 + this.size
+			this.directionX = -this.directionX
 		}
-	})
+		if (this.x + this.size > canvas1.width) {
+			this.x = canvas1.width - this.size
+			this.directionX = -this.directionX
+		}
+		if (this.y - this.size < 0) {
+			this.y = 0 + this.size
+			this.directionY = -this.directionY
+		}
+		if (this.y + this.size > canvas1.height) {
+			this.y = canvas1.height - this.size
+			this.directionY = -this.directionY
+		}
+
+		let dx = mouse1.x - this.x
+		let dy = mouse1.y - this.y
+		let distance = Math.sqrt(dx * dx + dy * dy)
+		let forceDirectionX = dx / distance
+		let forceDirectionY = dy / distance
+		let force = (mouse1.radius - distance) / mouse1.radius
+		let directionX = forceDirectionX * force * 10
+		let directionY = forceDirectionY * force * 10
+		if (mouseDown && distance < mouse1.radius + this.size) {
+			this.x -= directionX
+			this.y -= directionY
+		}
+		else if ((distance < (mouse1.radius + this.size)) && (distance > (mouse1.radius + this.size) / 1.5)) {
+			if (mouse1.x < this.x && this.x < canvas1.width - this.size * 2) {
+				if (this.directionX > 0)
+					this.directionX = -this.directionX
+				else
+					this.x += directionX / 2
+			}
+			if (mouse1.x > this.x && this.x > this.size * 2) {
+				if (this.directionX < 0)
+					this.directionX = -this.directionX
+				else
+					this.x += directionX / 2
+			}
+			if (mouse1.y < this.y && this.y < canvas1.height - this.size * 2) {
+				if (this.directionY > 0)
+					this.directionY = -this.directionY
+				else
+					this.y += directionY / 2
+			}
+			if (mouse1.y > this.y && this.y > this.size * 2) {
+				if (this.directionY < 0)
+					this.directionY = -this.directionY
+				else
+					this.y += directionY / 2
+			}
+		}
+		this.x += this.directionX
+		this.y += this.directionY
+		this.draw()
+	}
+}
+
+function init1() {
+	particlesArray1 = []
+	let numberOfParticles = Math.floor((canvas1.height * canvas1.width) / 5000)
+	if (numberOfParticles > 133)
+		numberOfParticles = 133
+	for (let i = 0; i < numberOfParticles; i++) {
+		let size = (Math.random() * 2) + 1
+		// let size = 1
+		let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2)
+		let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2)
+		let directionX = (Math.random() * 2) - 1
+		let directionY = (Math.random() * 2) - 1
+		let color = 'rgb(0, 153, 255)'
+
+		particlesArray1.push(new Particle1(x, y, directionX, directionY, size, color))
+	}
+}
+
+let lastTime = 0
+const fps = 16
+const nextFrame = 1000 / fps
+let timer = 0
+
+let section2fade = 1
+
+function animate1(timeStamp) {
+
+	if (window.scrollY <= canvasContainer.offsetTop + canvasContainer.offsetHeight) {
+		const deltaTime = timeStamp - lastTime
+		lastTime = timeStamp
+		if (timer > nextFrame) {
+			matrixC.fillStyle = 'rgba(0,0,0,.1)'
+			matrixC.textAlign = 'center'
+			matrixC.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height)
+			matrixC.fillStyle = BrazilFlag//'#0099ff'
+			matrixC.font = effect.fontSize + 'px monospace'
+			effect.symbols.forEach(symbol => symbol.draw(matrixC))
+			timer = 0
+		}
+		else
+			timer += deltaTime
+	}
+
+	if (section2fade < 1) {
+		c1.clearRect(0, 0, innerWidth, innerHeight)
+
+		let opacityValue = 1
+		for (let a = 0; a < particlesArray1.length; a++) {
+			for (let b = a; b < particlesArray1.length; b++) {
+				let distance = ((particlesArray1[a].x - particlesArray1[b].x) * (particlesArray1[a].x - particlesArray1[b].x)) +
+					((particlesArray1[a].y - particlesArray1[b].y) * (particlesArray1[a].y - particlesArray1[b].y))
+				if (distance < (canvas1.width / 7) * (canvas1.height / 7)) {
+					opacityValue = 1 - (distance / 10000)
+					c1.strokeStyle = `rgba(0,51,102,${ opacityValue })`
+					c1.lineWidth = 1
+					c1.beginPath()
+					c1.moveTo(particlesArray1[a].x, particlesArray1[a].y)
+					c1.lineTo(particlesArray1[b].x, particlesArray1[b].y)
+					c1.stroke()
+				}
+			}
+
+			distance = ((particlesArray1[a].x - mouse1.x) * (particlesArray1[a].x - mouse1.x)) +
+				((particlesArray1[a].y - mouse1.y) * (particlesArray1[a].y - mouse1.y))
+			if (distance < (canvas1.width / 7) * (canvas1.height / 7)) {
+				if (mouseDown)
+					opacityValue = 1 - (distance / 25000)
+				else
+					opacityValue = 1 - (distance / 50000)
+				if (mouseDown)
+					c1.strokeStyle = `rgba(102,0,51,${ opacityValue })`
+				else
+					c1.strokeStyle = `rgba(0,51,102,${ opacityValue })`
+				c1.lineWidth = 1
+				c1.beginPath()
+				c1.moveTo(particlesArray1[a].x, particlesArray1[a].y)
+				c1.lineTo(mouse1.x, mouse1.y)
+				c1.stroke()
+			}
+
+			particlesArray1[a].update()
+		}
+	}
+
+	if (section2fade < 1) {
+		let gradient = c1.createRadialGradient(canvas1.width / 2, canvas1.height / 2, canvas1.width / 8, canvas1.width / 2, canvas1.height / 2, canvas1.width / 2)
+		gradient.addColorStop(0, `rgba(16,16,16,${ section2fade })`)
+		gradient.addColorStop(1, `rgba(0,0,0,${ section2fade })`)
+		c1.fillStyle = gradient
+		c1.fillRect(0, 0, canvas1.width, canvas1.height)
+	}
+	if (window.scrollY + window.innerHeight / 2 >= section2.offsetTop) {
+		if (section2fade > 0)
+			section2fade -= .025
+	}
+	else {
+		if (section2fade < 1)
+			section2fade += .05
+	}
+	requestAnimationFrame(animate1)
+}
+
+window.addEventListener('resize', () => {
+	canvas1.width = window.innerWidth
+	canvas1.height = window.innerHeight
+	mouse1.radius = ((canvas1.height / 80) * (canvas1.width / 80))
+	if (mouse1.radius > 150)
+		mouse1.radius = 150
+	init1()
+})
+
+window.addEventListener('mouseout', () => {
+	mouse1.x = undefined
+	mouse1.y = undefined
+})
+
+// init()
+init1()
+animate1(0)
+
+let showingInterface = true
+function showHideInterface() {
+	let interfaceElements = [...Array.from(document.querySelectorAll('section')), document.querySelector('#footerContainer'), document.querySelector('footer')]
+	showingInterface = !showingInterface
+	if (showingInterface) {
+		hideInterfaceBtSpan.innerText = 'Hide Interface'
+		hideInterfaceBt.style.position = ''
+		hideInterfaceBt.style.right = ''
+		hideInterfaceBt.style.bottom = ''
+		document.querySelector('footer').appendChild(hideInterfaceBt)
+		interfaceElements.map(el => {
+			el.style.display = ''
+		})
+		eyeImg.style.opacity = '.5'
+	}
+	else {
+		interfaceElements.map(el => {
+			el.style.display = 'none'
+		})
+		document.body.appendChild(hideInterfaceBt)
+		hideInterfaceBtSpan.innerText = 'Show Interface'
+		hideInterfaceBt.style.position = 'fixed'
+		hideInterfaceBt.style.right = '8px'
+		hideInterfaceBt.style.bottom = '8px'
+		eyeImg.style.opacity = '1'
+	}
 }
 
 function copyLink() {
@@ -31,238 +340,3 @@ console.log(`
 	Instead, you just type:\n
 	foo = 123
 `)
-
-const canvas = document.querySelector('#canvas1')
-const c = canvas.getContext('2d')
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
-
-let particlesArray
-
-let mouse = {
-	x: undefined,
-	y: undefined,
-	radius: (canvas.height / 80) * (canvas.width / 80)
-}
-if (mouse.radius < 50)
-	mouse.radius = 50
-if (mouse.radius > 150)
-	mouse.radius = 150
-
-window.addEventListener('mousemove', (e) => {
-	mouse.x = e.x
-	mouse.y = e.y
-})
-window.addEventListener('touchmove', (e) => {
-	mouse.x = e.touches[e.touches.length - 1].clientX
-	mouse.y = e.touches[e.touches.length - 1].clientY
-})
-
-let mouseDown = false
-window.addEventListener('mousedown', () => {
-	mouseDown = true
-})
-window.addEventListener('touchstart', () => {
-	mouseDown = true
-})
-window.addEventListener('mouseup', () => {
-	mouseDown = false
-})
-window.addEventListener('touchend', () => {
-	mouseDown = false
-	mouse.x = undefined
-	mouse.y = undefined
-})
-
-class Particle {
-	constructor(x, y, directionX, directionY, size, color) {
-		this.x = x
-		this.y = y
-		this.directionX = directionX
-		this.directionY = directionY
-		this.size = size
-		this.color = color
-	}
-
-	draw() {
-		c.beginPath()
-		c.arc(this.x, this.y, this.size, 0, Math.PI * 2, false)
-		c.fillStyle = this.color
-		c.fill()
-	}
-
-	update() {
-		if (this.x - this.size < 0) {
-			this.x = 0 + this.size
-			this.directionX = -this.directionX
-		}
-		if (this.x + this.size > canvas.width) {
-			this.x = canvas.width - this.size
-			this.directionX = -this.directionX
-		}
-		if (this.y - this.size < 0) {
-			this.y = 0 + this.size
-			this.directionY = -this.directionY
-		}
-		if (this.y + this.size > canvas.height) {
-			this.y = canvas.height - this.size
-			this.directionY = -this.directionY
-		}
-
-		let dx = mouse.x - this.x
-		let dy = mouse.y - this.y
-		let distance = Math.sqrt(dx * dx + dy * dy)
-		let forceDirectionX = dx / distance
-		let forceDirectionY = dy / distance
-		let force = (mouse.radius - distance) / mouse.radius
-		let directionX = forceDirectionX * force * 10
-		let directionY = forceDirectionY * force * 10
-		if (mouseDown && distance < mouse.radius + this.size) {
-			this.x -= directionX
-			this.y -= directionY
-		}
-		else if ((distance < (mouse.radius + this.size)) && (distance > (mouse.radius + this.size) / 1.5)) {
-			if (mouse.x < this.x && this.x < canvas.width - this.size * 2) {
-				if (this.directionX > 0)
-					this.directionX = -this.directionX
-				else
-					this.x += directionX / 2
-			}
-			if (mouse.x > this.x && this.x > this.size * 2) {
-				if (this.directionX < 0)
-					this.directionX = -this.directionX
-				else
-					this.x += directionX / 2
-			}
-			if (mouse.y < this.y && this.y < canvas.height - this.size * 2) {
-				if (this.directionY > 0)
-					this.directionY = -this.directionY
-				else
-					this.y += directionY / 2
-			}
-			if (mouse.y > this.y && this.y > this.size * 2) {
-				if (this.directionY < 0)
-					this.directionY = -this.directionY
-				else
-					this.y += directionY / 2
-			}
-		}
-		this.x += this.directionX
-		this.y += this.directionY
-		this.draw()
-	}
-}
-
-function init() {
-	particlesArray = []
-	let numberOfParticles = Math.floor((canvas.height * canvas.width) / 5000)
-	if (numberOfParticles > 133)
-		numberOfParticles = 133
-	for (let i = 0; i < numberOfParticles; i++) {
-		let size = (Math.random() * 2) + 1
-		// let size = 1
-		let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2)
-		let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2)
-		let directionX = (Math.random() * 2) - 1
-		let directionY = (Math.random() * 2) - 1
-		let color = 'rgb(0, 153, 255)'
-
-		particlesArray.push(new Particle(x, y, directionX, directionY, size, color))
-	}
-}
-
-function animate() {
-	requestAnimationFrame(animate)
-	if (window.scrollY + window.innerHeight >= section2.offsetTop) {
-		c.clearRect(0, 0, innerWidth, innerHeight)
-
-		let opacityValue = 1
-		for (let a = 0; a < particlesArray.length; a++) {
-			for (let b = a; b < particlesArray.length; b++) {
-				let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
-					((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y))
-				if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-					opacityValue = 1 - (distance / 10000)
-					c.strokeStyle = `rgba(0,51,102,${ opacityValue })`
-					c.lineWidth = 1
-					c.beginPath()
-					c.moveTo(particlesArray[a].x, particlesArray[a].y)
-					c.lineTo(particlesArray[b].x, particlesArray[b].y)
-					c.stroke()
-				}
-			}
-
-			distance = ((particlesArray[a].x - mouse.x) * (particlesArray[a].x - mouse.x)) +
-				((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y))
-			if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-				if (mouseDown)
-					opacityValue = 1 - (distance / 25000)
-				else
-					opacityValue = 1 - (distance / 50000)
-				if (mouseDown)
-					c.strokeStyle = `rgba(102,0,51,${ opacityValue })`
-				else
-					c.strokeStyle = `rgba(0,51,102,${ opacityValue })`
-				c.lineWidth = 1
-				c.beginPath()
-				c.moveTo(particlesArray[a].x, particlesArray[a].y)
-				c.lineTo(mouse.x, mouse.y)
-				c.stroke()
-			}
-
-			particlesArray[a].update()
-		}
-	}
-
-}
-
-window.addEventListener('resize', () => {
-	canvas.width = window.innerWidth
-	canvas.height = window.innerHeight
-	mouse.radius = ((canvas.height / 80) * (canvas.width / 80))
-	if (mouse.radius > 150)
-		mouse.radius = 150
-	init()
-})
-
-window.addEventListener('mouseout', () => {
-	mouse.x = undefined
-	mouse.y = undefined
-})
-
-init()
-animate()
-
-let showingInterface = true
-function showHideInterface() {
-	let interfaceElements = [...Array.from(document.querySelectorAll('section')), document.querySelector('#footerContainer'), document.querySelector('footer')]
-	showingInterface = !showingInterface
-	if (showingInterface) {
-		hideInterfaceBtSpan.innerText = 'Hide Interface'
-		hideInterfaceBt.style.position = ''
-		hideInterfaceBt.style.right = ''
-		hideInterfaceBt.style.bottom = ''
-		document.querySelector('footer').appendChild(hideInterfaceBt)
-		// document.body.removeChild(hideInterfaceBt)
-		interfaceElements.map(el => {
-			el.style.display = ''
-		})
-		// window.scrollTo(0, document.body.scrollHeight)
-		eyeImg.style.opacity = '.5'
-
-		if (navigator.hardwareConcurrency >= 6)
-			selfie.setAttribute('src', 'https://djalmir.github.io/matrixSelfie/')
-	}
-	else {
-		interfaceElements.map(el => {
-			el.style.display = 'none'
-		})
-		document.body.appendChild(hideInterfaceBt)
-		hideInterfaceBtSpan.innerText = 'Show Interface'
-		hideInterfaceBt.style.position = 'fixed'
-		hideInterfaceBt.style.right = '8px'
-		hideInterfaceBt.style.bottom = '8px'
-		// document.querySelector('footer').removeChild(hideInterfaceBt)
-		eyeImg.style.opacity = '1'
-	}
-}

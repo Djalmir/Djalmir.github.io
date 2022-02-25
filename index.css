@@ -108,11 +108,58 @@ h1 {
 }
 
 #section1innerContainer {
-	margin-top: 100px;
+	margin-top: 50px;
 	z-index: 1;
 }
 
-#selfie {
+#canvasContainer {
+	/* border-radius: 50%;
+	background: #090909;
+	overflow: hidden;
+	max-width: 300px;
+	max-height: 300px;
+	position: relative; */
+	border-radius: 50%;
+	margin: 0 auto;
+	width: 200px;
+	height: 200px;
+	box-shadow: 7px 7px 5px #000;
+	shape-outside: circle();
+	background: linear-gradient(to bottom right, #262626, #090909);
+	position: relative;
+	overflow: visible;
+}
+
+/* #canvas {
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	position: relative;
+} */
+
+#matrixCanvas {
+	position: absolute;
+	z-index: 1;
+	top: 2.5%;
+	left: 2.5%;
+	width: 95%;
+	height: 95%;
+	border-radius: 50%;
+}
+
+#pic {
+	position: absolute;
+	bottom: 2.4%;
+	left: 2.4%;
+	width: 95%;
+	height: 95%;
+	z-index: 2;
+	/* opacity: .85; */
+	border-bottom-left-radius: 50%;
+	border-bottom-right-radius: 50%;
+}
+
+/* #selfie {
 	border-radius: 50%;
 	margin: 17px;
 	width: 220px;
@@ -121,7 +168,7 @@ h1 {
 	box-shadow: 7px 7px 5px #000;
 	shape-outside: circle();
 	background: linear-gradient(to bottom right, #262626, #090909);
-}
+} */
 
 #section1Text {
 	flex: 1;
@@ -473,10 +520,11 @@ footer a {
 	opacity: .5;
 }
 
-@media(min-width: 400px) {
+@media(min-width: 600px) {
 
-	#selfie {
+	#canvasContainer {
 		float: left;
+		margin: 17px;
 	}
 
 	#section1Text {
