@@ -149,9 +149,9 @@ h1 {
 
 #pic {
 	position: absolute;
-	bottom: 2.4%;
-	left: 2.4%;
-	width: 95%;
+	bottom: 2%;
+	left: 2%;
+	width: 96%;
 	height: 95%;
 	z-index: 2;
 	/* opacity: .85; */
