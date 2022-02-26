@@ -11,7 +11,7 @@
 	letter-spacing: 1.2px;
 	scroll-behavior: smooth;
 	-webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 ::-webkit-scrollbar {
@@ -61,6 +61,7 @@ body {
 	z-index: 1;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	transition: top 2s;
 }
 
@@ -276,7 +277,7 @@ h1 {
 	padding: 10px 10px 20px;
 	box-sizing: border-box;
 	width: 96%;
-	max-width: 1280px;
+	max-width: 800px;
 	overflow-x: auto;
 }
 
@@ -291,13 +292,8 @@ ul {
 	justify-content: center;
 	align-items: stretch;
 	flex-wrap: wrap;
-	gap: 10px;
-}
-
-a {
-	display: flex;
-	width: 100%;
-	max-width: 600px;
+	gap: 100px;
+	padding: 50px 0;
 }
 
 li {
@@ -306,9 +302,8 @@ li {
 	padding: 10px 16px;
 	box-sizing: border-box;
 	border-radius: .5rem;
-	cursor: pointer;
 	width: 100%;
-	max-width: 600px;
+	max-width: 1024px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -320,7 +315,12 @@ li * {
 	z-index: 1;
 }
 
-#section1::before,
+.aContainer {
+	display: flex;
+	justify-content: flex-end;
+}
+
+/* #section1::before,
 li::before {
 	content: '';
 	position: absolute;
@@ -358,7 +358,7 @@ li::after {
 
 *.hovered::before, *.hovered::after {
 	transform: scaleX(1) !important;
-}
+} */
 
 b {
 	background: linear-gradient(10deg, #161616, transparent);
