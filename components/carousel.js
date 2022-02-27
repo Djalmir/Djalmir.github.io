@@ -25,14 +25,16 @@ class Carousel extends HTMLElement {
 
 			#wrapper {
 				width: 100%;
-				margin: 17px 0;
+				margin: 0;
 			}
 
 			#imgsWrapper {
 				width: 100%;
-				overflow: hidden;
+				overflow-x: hidden;
+				overflow-y: visible;
 				scroll-behavior: smooth;
 				white-space: nowrap;
+				padding: 10px 0;
 			}
 
 			#imgsWrapper img {
@@ -40,7 +42,18 @@ class Carousel extends HTMLElement {
 				border-radius: .5rem;
 				display: inline;
 				vertical-align: middle;
+				/* cursor: pointer; */
 			}
+
+			/* #imgsWrapper img:hover {
+				box-shadow: 2px 2px 2px #000000d8;
+				transform: scale(1.02);
+			}
+
+			#imgsWrapper img:active {
+				box-shadow: none;
+				transform: scale(1);
+			} */
 
 			.arr{
 				position: absolute;
@@ -53,41 +66,37 @@ class Carousel extends HTMLElement {
 				color: #ccc;
 				font-size: 2em;
 				cursor: pointer;
-				transition: .2s;
+				transition: .1s;
 			}
 
 			#leftArr {
-				left: -15px;
+				left: 0;
 				text-align: left;
 				padding-left: 10px;
-				border-radius: 0 5rem 5rem 0;
 			}
 			
 			#leftArr:hover {
-				background: linear-gradient(to left, transparent, #090909d8);
+				background: linear-gradient(to left, transparent, #09090990);
 			}
 
 			#rightArr {
-				right: -15px;
+				right: 0;
 				text-align: right;
 				padding-right: 10px;
-				border-radius: 5rem 0 0 5rem;
 			}
 			
 			#rightArr:hover {
-				background: linear-gradient(to right, transparent, #090909d8);
+				background: linear-gradient(to right, transparent, #09090990);
 			}
 
 			#leftArr:active,
 			#rightArr:active {
 				font-size: 1.5em;
 			}
+
 		`
 
-		const showingIndex = this.shadowRoot.appendChild(document.createElement('input'))
-		showingIndex.type = 'number'
-		showingIndex.style.display = 'none'
-		showingIndex.value = 0
+		this.showingIndex = 0
 
 		const wrapper = this.shadowRoot.appendChild(document.createElement('div'))
 		wrapper.id = 'wrapper'
@@ -95,60 +104,233 @@ class Carousel extends HTMLElement {
 		const div = wrapper.appendChild(document.createElement('div'))
 		div.id = 'imgsWrapper'
 
+		this.scrollToLeft = () => {
+			if (this.showingIndex > 0)
+				this.showingIndex--
+			else
+				this.showingIndex = srcs.length - 1
+			let child = div.children[this.showingIndex]
+			div.scrollTo(child.offsetLeft - div.offsetWidth / 2 + child.offsetWidth / 2, 0)
+		}
+
+		this.scrollToRight = () => {
+			if (this.showingIndex < srcs.length - 1)
+				this.showingIndex++
+			else
+				this.showingIndex = 0
+			let child = div.children[this.showingIndex]
+			div.scrollTo(child.offsetLeft - div.offsetWidth / 2 + child.offsetWidth / 2, 0)
+		}
+
 		for (let i = 0; i < srcs.length; i++) {
 			let img = document.createElement('img')
+
+			const setSizes = () => {
+				if (img.naturalWidth > img.naturalHeight) {
+					img.style.width = '90%'
+					div.appendChild(img)
+				}
+				else {
+					let imgContainer = div.appendChild(document.createElement('div'))
+					imgContainer.style = `
+						margin: 0 5%;
+						border-radius: .5rem;
+						display: inline-block;
+						width: 90%;
+						text-align: center;
+					`
+					img.style = `
+						height: ${ img.naturalHeight }px;
+						max-height: 30vh;
+						margin: 0 auto;
+						border-radius: .5rem;
+						display: inline;
+					`
+					imgContainer.appendChild(img)
+				}
+			}
+
+			img.addEventListener('load', setSizes)
 			img.setAttribute('src', srcs[i])
 
-			if (img.naturalWidth > img.naturalHeight) {
-				img.style.width = '90%'
-				div.appendChild(img)
-			}
-			else {
-				let imgContainer = div.appendChild(document.createElement('div'))
-				imgContainer.style = `
-					margin: 0;
-					border-radius: .5rem;
-					display: inline-block;
-					width: 100%;
-					text-align: center;
-				`
-				img.style = `
-					height: ${img.naturalHeight}px;
-					max-height: 50vh;
-					margin: 0 auto;
-					border-radius: .5rem;
-					display: inline;
-				`
-				imgContainer.appendChild(img)
+			img.onclick = () => {
+				if (!sessionStorage.getItem('zionCarousel-isFullScreen')) {
+					sessionStorage.setItem('zionCarousel-isFullScreen', 'true')
+					let documentBody = document.documentElement.querySelector('body')
+					let shadow = documentBody.appendChild(document.createElement('div'))
+					shadow.style = `
+						position: fixed;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100vh;
+						background: #000000d8;
+						z-index: 98;
+						animation: .2s linear carouselFadeIn 1;
+					`
+					let fullScreenZionCarousel = this.cloneNode(true)
+
+					let compBounding = this.getBoundingClientRect()
+
+					let css = `
+						#closeBt {
+							position: fixed;
+							right: 5px;
+							top: 5px;
+							width: 64px;
+							height: 64px;
+							background: transparent;
+							color: #fff;
+							font-size: 32px;
+							font-weight: bolder;
+							border: none;
+							z-index: 99;
+							cursor: pointer;
+							opacity: .7;
+						}
+
+						#closeBt:hover {
+							opacity: 1;
+							transform: scale(1.05);
+						}
+
+						#closeBt:active {
+							transform: scale(.95);
+						}
+
+						@keyframes carouselFadeIn{
+							from {
+								opacity: 0;
+							}
+							to {
+								opacity: 1;
+							}
+						}
+
+						@keyframes carouselFadeOut {
+							from {
+								opacity: 1;
+							}
+							to {
+								opacity: 0;
+							}
+						}
+
+						@keyframes carouselShow {
+							from {
+								top: ${ compBounding.y }px;
+								left: ${ compBounding.x }px;
+								width: ${ compBounding.width }px;
+								height: ${ compBounding.height }px;
+							}
+							to {
+								top: 0;
+								left: 0;
+								width: 100%;
+								height: 100%;
+							}
+						}
+
+						@keyframes carouselHide {
+							from {
+								top: 0;
+								left: 0;
+								width: 100%;
+								height: 100%;
+							}
+							to {
+								top: ${ compBounding.y }px;
+								left: ${ compBounding.x }px;
+								width: ${ compBounding.width }px;
+								height: ${ compBounding.height }px;
+							}
+						}
+					`
+					let style = document.createElement('style')
+					style.appendChild(document.createTextNode(css))
+					let head = document.documentElement.querySelector('head')
+					head.appendChild(style)
+
+					fullScreenZionCarousel.style = `
+						position: fixed;
+						top: ${ compBounding.y }px;
+						left: ${ compBounding.x }px;
+						width: ${ compBounding.width }px;
+						height: ${ compBounding.height }px;
+						z-index: 99;
+						animation: .2s linear carouselShow forwards;
+					`
+
+					documentBody.appendChild(fullScreenZionCarousel)
+
+					let allCss = Array.from(document.styleSheets[0].cssRules).find(x => x.selectorText == '*')
+					allCss.style.overflow = 'hidden'
+
+					let closeBt = documentBody.appendChild(document.createElement('button'))
+					closeBt.id = 'closeBt'
+					closeBt.innerText = '\u2715'
+					closeBt.style.animation = '.2s linear carouselFadeIn 1'
+					closeBt.onclick = () => rmFullScreen()
+					function rmFullScreen() {
+						const rmShadow = () => {
+							shadow.removeEventListener('animationend', rmShadow)
+							documentBody.removeChild(shadow)
+							documentBody.removeChild(closeBt)
+						}
+
+						closeBt.style.animation = '.2s linear carouselFadeOut 1 forwards'
+						shadow.style.animation = '.2s linear carouselFadeOut 1 forwards'
+						shadow.addEventListener('animationend', rmShadow)
+
+						const rmCarousel = () => {
+							fullScreenZionCarousel.removeEventListener('animationend', rmCarousel)
+							documentBody.removeChild(fullScreenZionCarousel)
+							sessionStorage.removeItem('zionCarousel-isFullScreen')
+							allCss.style.overflow = ''
+						}
+
+						fullScreenZionCarousel.style.animation = '.2s linear carouselHide'
+						fullScreenZionCarousel.addEventListener('animationend', rmCarousel)
+					}
+
+					const kd = (e) => {
+						switch (e.key) {
+							case 'Escape':
+								window.removeEventListener('keydown', kd)
+								rmFullScreen()
+								break
+							case 'ArrowLeft':
+								fullScreenZionCarousel.scrollToLeft()
+								break
+							case 'ArrowRight':
+								fullScreenZionCarousel.scrollToRight()
+								break
+						}
+					}
+					window.addEventListener('keydown', kd)
+				}
 			}
 		}
 
 		const leftArr = wrapper.appendChild(document.createElement('button'))
 		leftArr.id = 'leftArr'
 		leftArr.classList.add('arr')
-		leftArr.onclick = () => {
-			if (showingIndex.value > 0)
-				showingIndex.value--
-			else
-				showingIndex.value = srcs.length - 1
-			div.scrollTo(showingIndex.value * div.offsetWidth, 0)
-		}
+		leftArr.onclick = () => this.scrollToLeft()
 		leftArr.innerText = '\u276E'
 
 		const rightArr = wrapper.appendChild(document.createElement('button'))
 		rightArr.id = 'rightArr'
 		rightArr.classList.add('arr')
-		rightArr.onclick = () => {
-			if (showingIndex.value < srcs.length - 1)
-				showingIndex.value++
-			else
-				showingIndex.value = 0
-			div.scrollTo(showingIndex.value * div.offsetWidth, 0)
-		}
+		rightArr.onclick = () => this.scrollToRight()
 		rightArr.innerText = '\u276F'
 
 		window.addEventListener('resize', () => {
-			div.scrollTo(showingIndex.value * div.offsetWidth, 0)
+			let child = div.children[this.showingIndex]
+			div.scrollTo(child.offsetLeft - div.offsetWidth / 2 + child.offsetWidth / 2, 0)
+		})
+
+		window.addEventListener('beforeunload', () => {
+			sessionStorage.removeItem('zionCarousel-isFullScreen')
 		})
 
 	}

@@ -70,8 +70,8 @@ let mouse1 = {
 	y: undefined,
 	radius: (canvas1.height / 80) * (canvas1.width / 80)
 }
-if (mouse1.radius < 50)
-	mouse1.radius = 50
+if (mouse1.radius < 80)
+	mouse1.radius = 80
 if (mouse1.radius > 150)
 	mouse1.radius = 150
 
@@ -182,8 +182,8 @@ class Particle1 {
 function init1() {
 	particlesArray1 = []
 	let numberOfParticles = Math.floor((canvas1.height * canvas1.width) / 5000)
-	if (numberOfParticles > 133)
-		numberOfParticles = 133
+	if (numberOfParticles > 150)
+		numberOfParticles = 150
 	for (let i = 0; i < numberOfParticles; i++) {
 		let size = (Math.random() * 2) + 1
 		// let size = 1
@@ -198,7 +198,7 @@ function init1() {
 }
 
 let lastTime = 0
-const fps = 16
+const fps = 9
 const nextFrame = 1000 / fps
 let timer = 0
 
@@ -231,7 +231,7 @@ function animate1(timeStamp) {
 				let distance = ((particlesArray1[a].x - particlesArray1[b].x) * (particlesArray1[a].x - particlesArray1[b].x)) +
 					((particlesArray1[a].y - particlesArray1[b].y) * (particlesArray1[a].y - particlesArray1[b].y))
 				if (distance < (canvas1.width / 7) * (canvas1.height / 7)) {
-					opacityValue = 1 - (distance / 10000)
+					opacityValue = 1 - (distance / 15000)
 					c1.strokeStyle = `rgba(0,51,102,${ opacityValue })`
 					c1.lineWidth = 1
 					c1.beginPath()
@@ -313,6 +313,10 @@ function showHideInterface() {
 			el.style.display = ''
 		})
 		eyeImg.style.opacity = '.5'
+		let cssRule = Array.from(document.styleSheets[0].cssRules).find(x => x.selectorText == '*')
+		cssRule.style.scrollBehavior = 'unset'
+		window.scrollTo(0, document.body.offsetHeight)
+		cssRule.style.scrollBehavior = 'smooth'
 	}
 	else {
 		interfaceElements.map(el => {

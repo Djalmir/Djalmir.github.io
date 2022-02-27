@@ -277,7 +277,6 @@ h1 {
 	padding: 10px 10px 20px;
 	box-sizing: border-box;
 	width: 96%;
-	max-width: 800px;
 	overflow-x: auto;
 }
 
@@ -299,20 +298,31 @@ ul {
 li {
 	position: relative;
 	background: #101010d8;
-	padding: 10px 16px;
+	padding: 0;
 	box-sizing: border-box;
 	border-radius: .5rem;
 	width: 100%;
-	max-width: 1024px;
+	max-width: 600px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	box-shadow: 0 0 5px 2px #000000a8;
 }
 
+.innerLi {
+	padding: 0 20px 10px;
+}
+
 li * {
 	position: relative;
 	z-index: 1;
+}
+
+zion-carousel {
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	background: #09090990;
 }
 
 .aContainer {
@@ -373,7 +383,7 @@ hr {
 	position: relative;
 	border: none;
 	border-bottom: 1px solid #181818;
-	margin: 0 0 10px 0;
+	margin: 0;
 }
 
 p {
