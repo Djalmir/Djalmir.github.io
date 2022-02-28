@@ -319,9 +319,8 @@ li * {
 }
 
 zion-carousel {
-	position: relative;
 	width: 100%;
-	margin: 0 auto;
+	height: 180px;
 	background: #09090990;
 }
 

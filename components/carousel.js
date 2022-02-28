@@ -1,14 +1,18 @@
 class Carousel extends HTMLElement {
-	constructor() {
+	constructor(srcs) {
 		super()
 		this.attachShadow({mode: 'open'})
 
-		if (!this.hasAttribute('srcs'))
-			throw new Error("The carousel needs the attribute srcs. It should one or more image sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
+		if (!srcs) {
+			if (!this.hasAttribute('srcs'))
+				throw new Error("The carousel needs the attribute srcs. It should one or more image sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
 
-		const srcs = this.getAttribute('srcs').split(',').map((attr) => {
-			return attr.trim()
-		})
+			srcs = this.getAttribute('srcs').split(',').map((attr) => {
+				return attr.trim()
+			})
+		}
+
+
 
 		const style = this.shadowRoot.appendChild(document.createElement('style'))
 		style.textContent = /*css*/`
@@ -25,35 +29,17 @@ class Carousel extends HTMLElement {
 
 			#wrapper {
 				width: 100%;
+				height: 100%;
 				margin: 0;
 			}
 
 			#imgsWrapper {
-				width: 100%;
-				overflow-x: hidden;
-				overflow-y: visible;
+				overflow: hidden;
+				height: 100%;
 				scroll-behavior: smooth;
 				white-space: nowrap;
-				padding: 10px 0;
+				padding: 0;
 			}
-
-			#imgsWrapper img {
-				margin: 0 5%;
-				border-radius: .5rem;
-				display: inline;
-				vertical-align: middle;
-				/* cursor: pointer; */
-			}
-
-			/* #imgsWrapper img:hover {
-				box-shadow: 2px 2px 2px #000000d8;
-				transform: scale(1.02);
-			}
-
-			#imgsWrapper img:active {
-				box-shadow: none;
-				transform: scale(1);
-			} */
 
 			.arr{
 				position: absolute;
@@ -125,32 +111,30 @@ class Carousel extends HTMLElement {
 		for (let i = 0; i < srcs.length; i++) {
 			let img = document.createElement('img')
 
-			const setSizes = () => {
-				if (img.naturalWidth > img.naturalHeight) {
-					img.style.width = '90%'
-					div.appendChild(img)
-				}
-				else {
-					let imgContainer = div.appendChild(document.createElement('div'))
-					imgContainer.style = `
-						margin: 0 5%;
+			img.setSizes = () => {
+				let imgContainer = div.appendChild(document.createElement('div'))
+				imgContainer.style = `
+						margin: 0;
 						border-radius: .5rem;
 						display: inline-block;
-						width: 90%;
+						width: 100%;
+						height: 100%;
 						text-align: center;
+						position: relative;
 					`
-					img.style = `
-						height: ${ img.naturalHeight }px;
-						max-height: 30vh;
-						margin: 0 auto;
-						border-radius: .5rem;
-						display: inline;
+				img.style = `
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						max-width: 100%;
+						max-height: 100%;
 					`
-					imgContainer.appendChild(img)
-				}
+				imgContainer.appendChild(img)
+				// div.appendChild(img)
 			}
 
-			img.addEventListener('load', setSizes)
+			img.addEventListener('load', img.setSizes)
 			img.setAttribute('src', srcs[i])
 
 			img.onclick = () => {
@@ -169,6 +153,7 @@ class Carousel extends HTMLElement {
 						animation: .2s linear carouselFadeIn 1;
 					`
 					let fullScreenZionCarousel = this.cloneNode(true)
+					// let fullScreenZionCarousel = new Carousel(srcs)
 
 					let compBounding = this.getBoundingClientRect()
 
@@ -287,6 +272,7 @@ class Carousel extends HTMLElement {
 							documentBody.removeChild(fullScreenZionCarousel)
 							sessionStorage.removeItem('zionCarousel-isFullScreen')
 							allCss.style.overflow = ''
+							fullScreenZionCarousel = null
 						}
 
 						fullScreenZionCarousel.style.animation = '.2s linear carouselHide'
@@ -332,7 +318,6 @@ class Carousel extends HTMLElement {
 		window.addEventListener('beforeunload', () => {
 			sessionStorage.removeItem('zionCarousel-isFullScreen')
 		})
-
 	}
 }
 
