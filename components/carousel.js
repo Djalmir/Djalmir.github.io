@@ -12,8 +12,6 @@ class Carousel extends HTMLElement {
 			})
 		}
 
-
-
 		const style = this.shadowRoot.appendChild(document.createElement('style'))
 		style.textContent = /*css*/`
 			* {
@@ -83,7 +81,6 @@ class Carousel extends HTMLElement {
 			}
 
 		`
-
 		this.showingIndex = 0
 
 		const wrapper = this.shadowRoot.appendChild(document.createElement('div'))
@@ -128,22 +125,22 @@ class Carousel extends HTMLElement {
 			img.setSizes = () => {
 				let imgContainer = div.appendChild(document.createElement('div'))
 				imgContainer.style = `
-						margin: 0;
-						border-radius: .5rem;
-						display: inline-block;
-						width: 100%;
-						height: 100%;
-						text-align: center;
-						position: relative;
-					`
+					margin: 0;
+					border-radius: .5rem;
+					display: inline-block;
+					width: 100%;
+					height: 100%;
+					text-align: center;
+					position: relative;
+				`
 				img.style = `
-						position: absolute;
-						top: 50%;
-						left: 50%;
-						transform: translate(-50%, -50%);
-						max-width: 100%;
-						max-height: 100%;
-					`
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					max-width: 100%;
+					max-height: 100%;
+				`
 				imgContainer.appendChild(img)
 			}
 
@@ -157,7 +154,8 @@ class Carousel extends HTMLElement {
 					let documentBody = document.documentElement.querySelector('body')
 					let compBounding = this.getBoundingClientRect()
 
-					let css = `
+					const style = document.createElement('style')
+					style.textContent = `
 						#closeBt {
 							position: fixed;
 							right: 5px;
@@ -231,8 +229,6 @@ class Carousel extends HTMLElement {
 							}
 						}
 					`
-					let style = document.createElement('style')
-					style.appendChild(document.createTextNode(css))
 					let head = document.documentElement.querySelector('head')
 					head.appendChild(style)
 
@@ -272,9 +268,9 @@ class Carousel extends HTMLElement {
 
 					this.addEventListener('animationend', removeFixScroll)
 
-					let allCss = Array.from(document.styleSheets[0].cssRules).find(x => x.selectorText == '*')
-					if (allCss)
-						allCss.style.overflow = 'hidden'
+					// let allCss = Array.from(document.styleSheets[0].cssRules).find(x => x.selectorText == '*')
+					// if (allCss)
+					// 	allCss.style.overflow = 'hidden'
 
 					let closeBt = documentBody.appendChild(document.createElement('button'))
 					closeBt.id = 'closeBt'
@@ -282,6 +278,14 @@ class Carousel extends HTMLElement {
 					closeBt.style.animation = '.2s linear carouselFadeIn 1'
 
 					const rmFullScreen = () => {
+						let newCompBounding = spaceKeeper.getBoundingClientRect()
+						Array.from(document.styleSheets[document.styleSheets.length - 1].cssRules).find(cr => cr.name == 'carouselHide')[1].style = `
+							top: ${ newCompBounding.y }px;
+							left: ${ newCompBounding.x }px;
+							width: ${ newCompBounding.width }px;
+							height: ${ newCompBounding.height }px;
+						`
+
 						animating = true
 						div.style.scrollBehavior = 'unset'
 						fixScroll()
@@ -294,8 +298,8 @@ class Carousel extends HTMLElement {
 							host.parentElement.removeChild(spaceKeeper)
 							this.removeEventListener('animationend', rmCarousel)
 							sessionStorage.removeItem('zionCarousel-isFullScreen')
-							if (allCss)
-								allCss.style.overflow = ''
+							// if (allCss)
+							// 	allCss.style.overflow = ''
 							this.style = ''
 						}
 
@@ -320,11 +324,6 @@ class Carousel extends HTMLElement {
 						}
 					}
 					window.addEventListener('keydown', kd)
-
-					window.addEventListener('beforeunload', function (e) {
-						rmFullScreen()
-						e.returnValue = ''
-					})
 				}
 			}
 		}
