@@ -155,7 +155,6 @@ class Carousel extends HTMLElement {
 					sessionStorage.setItem('zionCarousel-isFullScreen', 'true')
 					wrapper.style.background = '#090909d8'
 					let documentBody = document.documentElement.querySelector('body')
-					let fullScreenZionCarousel = this
 					let compBounding = this.getBoundingClientRect()
 
 					let css = `
@@ -244,7 +243,7 @@ class Carousel extends HTMLElement {
 						height: ${ compBounding.height }px;
 					`
 
-					fullScreenZionCarousel.style = `
+					this.style = `
 						position: fixed;
 						top: ${ compBounding.y }px;
 						left: ${ compBounding.x }px;
@@ -254,11 +253,24 @@ class Carousel extends HTMLElement {
 						animation: .4s ease-in-out carouselShow forwards;
 					`
 
+					let animating = true
 					const fixScroll = () => {
 						let child = div.children[this.showingIndex]
 						div.scrollTo(child.offsetLeft - div.offsetWidth / 2 + child.offsetWidth / 2, 0)
+						if (animating)
+							requestAnimationFrame(fixScroll)
+						else
+							div.style.scrollBehavior = 'smooth'
 					}
-					fullScreenZionCarousel.addEventListener('animationend', fixScroll)
+					div.style.scrollBehavior = 'unset'
+					fixScroll()
+
+					const removeFixScroll = () => {
+						this.removeEventListener('animationend', removeFixScroll)
+						animating = false
+					}
+
+					this.addEventListener('animationend', removeFixScroll)
 
 					let allCss = Array.from(document.styleSheets[0].cssRules).find(x => x.selectorText == '*')
 					if (allCss)
@@ -268,33 +280,30 @@ class Carousel extends HTMLElement {
 					closeBt.id = 'closeBt'
 					closeBt.innerText = '\u2715'
 					closeBt.style.animation = '.2s linear carouselFadeIn 1'
-					closeBt.onclick = () => rmFullScreen()
-					function rmFullScreen() {
-						// const rmShadow = () => {
-						// 	shadow.removeEventListener('animationend', rmShadow)
-						// 	documentBody.removeChild(shadow)
-						// 	documentBody.removeChild(closeBt)
-						// }
+
+					const rmFullScreen = () => {
+						animating = true
+						div.style.scrollBehavior = 'unset'
+						fixScroll()
 						wrapper.style.background = '#09090990'
 
 						closeBt.style.animation = '.2s linear carouselFadeOut 1 forwards'
-						// shadow.style.animation = '.2s linear carouselFadeOut 1 forwards'
-						// shadow.addEventListener('animationend', rmShadow)
 
 						const rmCarousel = () => {
+							animating = false
 							host.parentElement.removeChild(spaceKeeper)
-							fullScreenZionCarousel.removeEventListener('animationend', rmCarousel)
-							// documentBody.removeChild(fullScreenZionCarousel)
+							this.removeEventListener('animationend', rmCarousel)
 							sessionStorage.removeItem('zionCarousel-isFullScreen')
 							if (allCss)
 								allCss.style.overflow = ''
-							fullScreenZionCarousel.style = ''
-							fullScreenZionCarousel = null
+							this.style = ''
 						}
 
-						fullScreenZionCarousel.style.animation = '.4s ease-in-out carouselHide'
-						fullScreenZionCarousel.addEventListener('animationend', rmCarousel)
+						this.style.animation = '.4s ease-in-out carouselHide'
+						this.addEventListener('animationend', rmCarousel)
 					}
+
+					closeBt.onclick = () => rmFullScreen()
 
 					const kd = (e) => {
 						switch (e.key) {
@@ -303,14 +312,19 @@ class Carousel extends HTMLElement {
 								rmFullScreen()
 								break
 							case 'ArrowLeft':
-								fullScreenZionCarousel.scrollToLeft()
+								this.scrollToLeft()
 								break
 							case 'ArrowRight':
-								fullScreenZionCarousel.scrollToRight()
+								this.scrollToRight()
 								break
 						}
 					}
 					window.addEventListener('keydown', kd)
+
+					window.addEventListener('beforeunload', function (e) {
+						rmFullScreen()
+						e.returnValue = ''
+					})
 				}
 			}
 		}
