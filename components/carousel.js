@@ -95,8 +95,14 @@ class Carousel extends HTMLElement {
 		this.scrollToLeft = () => {
 			if (this.showingIndex > 0)
 				this.showingIndex--
-			else
-				this.showingIndex = srcs.length - 1
+			else {
+				div.insertBefore(div.children[div.children.length - 1], div.children[this.showingIndex])
+				div.style.scrollBehavior = 'unset'
+				this.showingIndex++
+				div.scrollTo(div.children[this.showingIndex].offsetLeft - div.offsetWidth / 2 + div.children[this.showingIndex].offsetWidth / 2, 0)
+				this.showingIndex--
+				div.style.scrollBehavior = 'smooth'
+			}
 			let child = div.children[this.showingIndex]
 			div.scrollTo(child.offsetLeft - div.offsetWidth / 2 + child.offsetWidth / 2, 0)
 		}
@@ -104,8 +110,14 @@ class Carousel extends HTMLElement {
 		this.scrollToRight = () => {
 			if (this.showingIndex < srcs.length - 1)
 				this.showingIndex++
-			else
-				this.showingIndex = 0
+			else {
+				div.appendChild(div.children[0])
+				div.style.scrollBehavior = 'unset'
+				this.showingIndex--
+				div.scrollTo(div.children[this.showingIndex].offsetLeft - div.offsetWidth / 2 + div.children[this.showingIndex].offsetWidth / 2, 0)
+				this.showingIndex++
+				div.style.scrollBehavior = 'smooth'
+			}
 			let child = div.children[this.showingIndex]
 			div.scrollTo(child.offsetLeft - div.offsetWidth / 2 + child.offsetWidth / 2, 0)
 		}
