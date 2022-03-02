@@ -5,11 +5,27 @@ class Carousel extends HTMLElement {
 
 		if (!srcs) {
 			if (!this.hasAttribute('srcs'))
-				throw new Error("The carousel needs the attribute srcs. It should one or more image sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
+				throw new Error("The carousel needs the attribute srcs. It should an array of image sources or a string of sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
 
-			srcs = this.getAttribute('srcs').split(',').map((attr) => {
-				return attr.trim()
-			})
+			if (typeof this.getAttribute('srcs') == 'string') {
+				srcs = this.getAttribute('srcs').split(',').map((attr) => {
+					return attr.trim()
+				})
+			}
+			else {
+				srcs = this.getAttribute('srcs')
+				if (!Array.isArray(srcs))
+					throw new Error("The carousel needs the attribute srcs. It should an array of image sources or a string of sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
+			}
+		}
+		else {
+			if (typeof srcs == 'string') {
+				srcs = srcs.split(',').map((src) => {
+					return src.trim()
+				})
+			}
+			else if (!Array.isArray(srcs))
+				throw new Error("The carousel needs the attribute srcs. It should an array of image sources or a string of sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
 		}
 
 		const style = this.shadowRoot.appendChild(document.createElement('style'))
@@ -120,31 +136,27 @@ class Carousel extends HTMLElement {
 		}
 
 		for (let i = 0; i < srcs.length; i++) {
-			let img = document.createElement('img')
+			let imgContainer = div.appendChild(document.createElement('div'))
+			let img = imgContainer.appendChild(document.createElement('img'))
 
-			img.setSizes = () => {
-				let imgContainer = div.appendChild(document.createElement('div'))
-				imgContainer.style = `
-					margin: 0;
-					border-radius: .5rem;
-					display: inline-block;
-					width: 100%;
-					height: 100%;
-					text-align: center;
-					position: relative;
-				`
-				img.style = `
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					transform: translate(-50%, -50%);
-					max-width: 100%;
-					max-height: 100%;
-				`
-				imgContainer.appendChild(img)
-			}
+			imgContainer.style = `
+				margin: 0;
+				border-radius: .5rem;
+				display: inline-block;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				position: relative;
+			`
+			img.style = `
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				max-width: 100%;
+				max-height: 100%;
+			`
 
-			img.addEventListener('load', img.setSizes)
 			img.setAttribute('src', srcs[i])
 
 			img.onclick = () => {
@@ -341,8 +353,10 @@ class Carousel extends HTMLElement {
 		rightArr.innerText = '\u276F'
 
 		window.addEventListener('resize', () => {
+			div.style.scrollBehavior = 'unset'
 			let child = div.children[this.showingIndex]
 			div.scrollTo(child.offsetLeft - div.offsetWidth / 2 + child.offsetWidth / 2, 0)
+			div.style.scrollBehavior = 'smooth'
 		})
 
 		window.addEventListener('beforeunload', () => {
