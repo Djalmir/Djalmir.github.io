@@ -1,7 +1,9 @@
 class Carousel extends HTMLElement {
-	constructor(srcs) {
+	constructor(srcs, width, height, themeColor) {
 		super()
 		this.attachShadow({mode: 'open'})
+
+		this.themeColor = themeColor || this.getAttribute('theme-color')
 
 		if (!srcs) {
 			if (!this.hasAttribute('srcs'))
@@ -35,6 +37,8 @@ class Carousel extends HTMLElement {
 				padding: 0;
 				box-sizing: border-box;
 				-webkit-tap-highlight-color: transparent;
+				user-select: none;
+				-webkit-user-drag: none;
 			}
 
 			::-webkit-scrollbar {
@@ -42,11 +46,12 @@ class Carousel extends HTMLElement {
 			}
 
 			#wrapper {
-				width: 100%;
-				height: 100%;
-				margin: 0;
-				background: #09090990;
-				transition: .2s
+				position: relative;
+				width: ${ width || this.getAttribute('width') ? width || this.getAttribute('width') : '100%' };
+				height: ${ height || this.getAttribute('height') ? height || this.getAttribute('height') : '100%' };
+				margin: auto;
+				background: ${ this.themeColor ? this.themeColor : '#09090990' };
+				transition: .4s
 			}
 
 			#imgsWrapper {
@@ -78,7 +83,7 @@ class Carousel extends HTMLElement {
 			}
 			
 			#leftArr:hover {
-				background: linear-gradient(to left, transparent, #09090990);
+				background: linear-gradient(to left, transparent, ${ this.themeColor ? this.themeColor : '#09090990' });
 			}
 
 			#rightArr {
@@ -88,7 +93,7 @@ class Carousel extends HTMLElement {
 			}
 			
 			#rightArr:hover {
-				background: linear-gradient(to right, transparent, #09090990);
+				background: linear-gradient(to right, transparent, ${ this.themeColor ? this.themeColor : '#09090990' });
 			}
 
 			#leftArr:active,
@@ -162,7 +167,7 @@ class Carousel extends HTMLElement {
 			img.onclick = () => {
 				if (!sessionStorage.getItem('zionCarousel-isFullScreen')) {
 					sessionStorage.setItem('zionCarousel-isFullScreen', 'true')
-					wrapper.style.background = '#090909d8'
+					wrapper.style.background = `${ this.themeColor ? this.themeColor : '#090909d8' }`
 					let documentBody = document.documentElement.querySelector('body')
 					let compBounding = this.getBoundingClientRect()
 
@@ -261,6 +266,9 @@ class Carousel extends HTMLElement {
 						animation: .4s ease-in-out carouselShow forwards;
 					`
 
+					wrapper.style.width = '100%'
+					wrapper.style.height = '100%'
+
 					let animating = true
 					const fixScroll = () => {
 						let child = div.children[this.showingIndex]
@@ -290,24 +298,26 @@ class Carousel extends HTMLElement {
 					closeBt.style.animation = '.2s linear carouselFadeIn 1'
 
 					const rmFullScreen = () => {
+
 						let newCompBounding = spaceKeeper.getBoundingClientRect()
 						Array.from(document.styleSheets[document.styleSheets.length - 1].cssRules).find(cr => cr.name == 'carouselHide')[1].style = `
-							top: ${ newCompBounding.y }px;
-							left: ${ newCompBounding.x }px;
-							width: ${ newCompBounding.width }px;
-							height: ${ newCompBounding.height }px;
+						top: ${ newCompBounding.y }px;
+						left: ${ newCompBounding.x }px;
+						width: ${ newCompBounding.width }px;
+						height: ${ newCompBounding.height }px;
 						`
 
 						animating = true
 						div.style.scrollBehavior = 'unset'
 						fixScroll()
-						wrapper.style.background = '#09090990'
+						wrapper.style.background = `${ this.themeColor ? this.themeColor : '#09090990' }`
 
 						closeBt.style.animation = '.2s linear carouselFadeOut 1 forwards'
 
 						const rmCarousel = () => {
+							if (spaceKeeper)
+								host.parentElement.removeChild(spaceKeeper)
 							animating = false
-							host.parentElement.removeChild(spaceKeeper)
 							this.removeEventListener('animationend', rmCarousel)
 							sessionStorage.removeItem('zionCarousel-isFullScreen')
 							// if (allCss)
@@ -317,6 +327,9 @@ class Carousel extends HTMLElement {
 
 						this.style.animation = '.4s ease-in-out carouselHide'
 						this.addEventListener('animationend', rmCarousel)
+
+						wrapper.style.width = ''
+						wrapper.style.height = ''
 					}
 
 					closeBt.onclick = () => rmFullScreen()
@@ -363,6 +376,7 @@ class Carousel extends HTMLElement {
 			sessionStorage.removeItem('zionCarousel-isFullScreen')
 		})
 	}
+
 }
 
 customElements.define('zion-carousel', Carousel)
