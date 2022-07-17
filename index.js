@@ -181,10 +181,10 @@ class Particle1 {
 
 function init1() {
 	particlesArray1 = []
-	let numberOfParticles = Math.floor((canvas1.height * canvas1.width) / 5000)
-	if (numberOfParticles > 150)
-		numberOfParticles = 150
-	for (let i = 0; i < numberOfParticles; i++) {
+	let particlesAmmount = Math.floor((canvas1.height * canvas1.width) / 5000)
+	if (particlesAmmount > 150)
+		particlesAmmount = 150
+	for (let i = 0; i < particlesAmmount; i++) {
 		let size = (Math.random() * 2) + 1
 		// let size = 1
 		let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2)
@@ -198,7 +198,7 @@ function init1() {
 }
 
 let lastTime = 0
-const fps = 9
+const fps = 16
 const nextFrame = 1000 / fps
 let timer = 0
 
@@ -337,10 +337,10 @@ function copyLink() {
 	msg.showMessage('Tag copied!', "Now you're just a CTRL + V away from seeing your project logs on your phone! 😀")
 }
 
-console.log(`
-	TIP:\n
-	In this console you can't declare variables like this:\n
-	var foo = 123\n
-	Instead, you just type:\n
-	foo = 123
-`)
+// console.log(`
+// 	TIP:\n
+// 	In this console you can't declare variables like this:\n
+// 	var foo = 123\n
+// 	Instead, you just type:\n
+// 	foo = 123
+// `)

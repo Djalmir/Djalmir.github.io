@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<meta name="theme-color" content="#090909">
+		<meta name="theme-color" content="#001133">
 		<link rel="stylesheet" href="index.css">
 		<link rel="icon" href="ico.ico" />
 		<title>Djalmir's Projects</title>
@@ -21,13 +21,13 @@
 					<div id="section1Text">
 						<div id="canvasContainer">
 							<canvas id="matrixCanvas"></canvas>
-							<img id="pic" src="Dj.png" alt="Foto de Djalmir Miodutzki">
+							<img id="pic" src="/imgs/Dj.png" alt="Foto de Djalmir Miodutzki">
 						</div>
 						<p>
 							I'm Djalmir Miodutzki.<br />
 							<br />
 							I learned to program with Delphi when I was 16 years old. And I had fun with this language for a few years, until I discovered JavaScript, which I fell in love with!
-							I developed some personal projects with NodeJS on the backend and HTML, CSS and pure JavaScript on the frontend. From landing pages to 2D games. These projects have received few updates since I got my first job as a frontend developer. A position that, with pride, gratitude and joy, I occupy until now!<br />
+							I developed some personal projects with NodeJS on the backend and HTML, CSS and pure JavaScript on the frontend. From landing pages to 2D games. These projects have received few updates since I got my first job as a frontend developer. A position I currently hold.<br />
 							<br />
 							Learning is constant and enjoyable!
 						</p>
@@ -45,7 +45,70 @@
 		<canvas id="canvas1"></canvas>
 		<section id="section2">
 			<div class="h1Container">
-				<h1>The Projects</h1>
+				<h1>Tools</h1>
+			</div>
+			<div class="container">
+				<ul>
+					<li>
+						<div>
+							<b>ZionJS</b>
+							<hr />
+						</div>
+						<div class="innerLi">
+							<p>
+								ZionJS is a script that gives the developer the power of two way data binding and conditional rendering in pure javascript. In addition to facilitating the creation of http requests using the fetch API.
+							</p>
+							<p>
+								It's not something I would recommend in a professional project yet. But I'm already able to work on my personal projects with it!
+							</p>
+						</div>
+						<div class="aContainer innerLi">
+							<a href="https://github.com/Djalmir/ZionJS" target="_blank">
+								<button class="blueBt">Show me the code!</button>
+							</a>
+						</div>
+						<br />
+						<hr />
+						<div class="innerLi">
+							<small>
+								<span>Technologies used in this project:</span><br />
+								<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
+							</small>
+						</div>
+					</li>
+
+					<li>
+						<div>
+							<b>ZionCarousel</b>
+							<hr />
+						</div>
+						<div class="innerLi">
+							<p>
+								ZionCarousel is an image carousel capable of reaching full screen mode with a simple click on any image in it. While in full screen, you can browse the images with the arrow keys.
+							</p>
+							<p>
+								It is used many times on this site that you are now viewing.
+							</p>
+						</div>
+						<div class="aContainer innerLi">
+							<a href="https://github.com/Djalmir/zionCarousel" target="_blank">
+								<button class="blueBt">Show me the code!</button>
+							</a>
+						</div>
+						<br />
+						<hr />
+						<div class="innerLi">
+							<small>
+								<span>Technologies used in this project:</span><br />
+								<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
+							</small>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="h1Container">
+				<h1>Sites</h1>
 			</div>
 			<div class="container">
 				<ul>
@@ -106,9 +169,7 @@
 						<div class="innerLi">
 							<small>
 								<span>Technologies used in this project:</span><br />
-								<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
-								<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
-								<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
+								<img src="https://img.shields.io/badge/-ZionJS-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
 							</small>
 						</div>
 					</li>
@@ -208,41 +269,6 @@
 				</ul>
 			</div>
 
-			<!-- <div class="container">
-				<ul>
-					<li style="cursor: default;" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')" ontouchstart="this.classList.add('hovered')" ontouchend="this.classList.remove('hovered')">
-						<div>
-							<b>Console Mobile</b>
-							<hr />
-						</div>
-						<div>
-							<p>
-								Did you ever tried to build a website with just your smartphone?<br />
-								I did... 😅<br />
-								And we don't have devtools on smartphone browsers. At least I didn't found it. 🤔
-							</p>
-							<p>
-								So this project is made to help developers in this particular situation.<br />
-								You can test it by clicking the circular button at the left bottom corner of this page.<br />
-								If you want to use it on your projects, just copy the script tag below<br />
-								And paste it in your body tag, before any other script.<br />
-							<pre id="cmLink">&lt;script src="https://cdn.jsdelivr.net/gh/Djalmir/consoleMobile@latest/console.js"&gt;&lt;/script&gt;</pre>
-							</p>
-							<button id="copyLinkBt" class="blueBt" onclick="copyLink()">Copy script tag</button>
-						</div>
-						<div>
-							<hr />
-							<small>
-								<span>Technologies used in this project:</span><br />
-								<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
-								<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
-								<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
-							</small>
-						</div>
-					</li>
-				</ul>
-			</div> -->
-
 		</section>
 		<div id="footerContainer">
 			<footer>
@@ -255,15 +281,13 @@
 				<span>Copyright &copy; 2021 - by <a href="https://github.com/Djalmir" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a></span>
 				<button id="hideInterfaceBt" onclick="showHideInterface()">
 					<span id="hideInterfaceBtSpan">Hide Interface</span>
-					<img src="eye.svg" id="eyeImg" alt="eye image">
+					<img src="/imgs/eye.svg" id="eyeImg" alt="eye image">
 				</button>
 			</footer>
 		</div>
 
-		<!-- <script src="https://cdn.jsdelivr.net/gh/Djalmir/consoleMobile@0.1.8/console.js"></script> -->
 		<script src="index.js"></script>
-		<script src="./components/message.js"></script>
-		<script src="https://cdn.jsdelivr.net/gh/Djalmir/zionCarousel@latest/carousel.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/Djalmir/zionCarousel/carousel.js"></script>
 	</body>
 
 </html>
