@@ -1,5 +1,5 @@
 const matrixCanvas = document.querySelector('#matrixCanvas')
-const matrixC = matrixCanvas.getContext('2d')
+const matrixC = matrixCanvas.getContext('2d', { willReadFrequently: true })
 
 matrixCanvas.width = 210
 matrixCanvas.height = 210
@@ -59,7 +59,7 @@ class Effect {
 const effect = new Effect(matrixCanvas.width, matrixCanvas.height)
 
 const canvas1 = document.querySelector('#canvas1')
-const c1 = canvas1.getContext('2d')
+const c1 = canvas1.getContext('2d', { willReadFrequently: true })
 canvas1.width = window.innerWidth
 canvas1.height = window.innerHeight
 
