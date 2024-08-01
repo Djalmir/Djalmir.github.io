@@ -8,10 +8,11 @@
 	-webkit-tap-highlight-color: transparent;
 	user-select: none;
 	box-sizing: border-box;
-	letter-spacing: 1.2px;
+	letter-spacing: .07em;
 	scroll-behavior: smooth;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	text-shadow: 1px 1px 5px #003399aa;
 }
 
 ::-webkit-scrollbar {
@@ -39,7 +40,7 @@
 }
 
 body {
-	color: #ededed;
+	color: #aeb3c2;
 	font-family: 'Roboto', sans-serif;
 	position: absolute;
 	top: 0;
@@ -325,7 +326,7 @@ zion-carousel {
 
 b {
 	background: linear-gradient(10deg, #161616, transparent);
-	padding: 4px 8px 2px;
+	padding: 7px 13px 3px;
 	box-sizing: border-box;
 	border-radius: .4rem .4rem 0 0;
 	display: flex;
@@ -361,22 +362,25 @@ pre {
 .blueBt {
 	border: none;
 	border-radius: .2rem;
-	background: #0099ff;
+	background: #039;
+	color: #aeb3c2;
 	cursor: pointer;
 	padding: 8px 16px;
 	box-sizing: border-box;
-	opacity: .8;
 	font-weight: bolder;
 	letter-spacing: 1px;
+	transition: .2s;
 }
 
 .blueBt:hover {
-	opacity: 1;
+	filter: brightness(1.2);
+	box-shadow: 2px 2px 5px #000000d8;
 }
 
 .blueBt:active {
-	opacity: .8;
+	filter: brightness(.8);
 	transform: scale(.98);
+	box-shadow: inset 2px 2px 5px #000000d8;
 }
 
 .badge {

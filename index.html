@@ -1,262 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<meta name="theme-color" content="#001133">
-		<link rel="stylesheet" href="index.css">
-		<link rel="icon" href="favicon.ico" />
-		<title>Djalmir's Projects</title>
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="theme-color" content="#001133">
+	<link rel="stylesheet" href="index.css">
+	<link rel="icon" href="favicon.ico" />
+	<title>Djalmir's Projects</title>
+</head>
 
-	<body>
-		<my-message id="my-message"></my-message>
-		<section id="section1">
-			<div id="section1Container">
-				<h1>Welcome!</h1>
-				<p id="welcomeMsg">It's really nice to see you here!</p>
-				<div id="section1innerContainer">
-					<div id="section1Text">
-						<div id="canvasContainer">
-							<canvas id="matrixCanvas"></canvas>
-							<img id="pic" src="/imgs/Dj.png" alt="Foto de Djalmir Miodutzki">
-						</div>
-						<p>
-							I'm Djalmir Miodutzki.<br />
-							<br />
-							I learned to program with Delphi when I was 16 years old. And I had fun with this language for a few years, until I discovered JavaScript, which I fell in love with!
-							I developed some personal projects with NodeJS on the backend and HTML, CSS and pure JavaScript on the frontend. From landing pages to 2D games. These projects have received few updates since I got my first job as a frontend developer. A position I currently hold.<br />
-							<br />
-							Learning is constant and enjoyable!
-						</p>
+<body>
+	<my-message id="my-message"></my-message>
+	<section id="section1">
+		<div id="section1Container">
+			<h1>Welcome!</h1>
+			<p id="welcomeMsg">It's really nice to see you here!</p>
+			<div id="section1innerContainer">
+				<div id="section1Text">
+					<div id="canvasContainer">
+						<canvas id="matrixCanvas"></canvas>
+						<img id="pic" src="/imgs/Dj.png" alt="Foto de Djalmir Miodutzki">
 					</div>
+					<p>
+						I'm Djalmir Miodutzki.<br />
+						<br />
+						I started my programming journey with Delphi at the age of 16, but it was with Javascript that I truly found my passion. Since then, I have developed several skills and become a pure JavaScript expert, with extensive experience in Vue.js and NodeJS.<br />
+						During my career, I have had the opportunity to develop some professional applications from scratch, which are generating profit for their owners. These projects have allowed me to apply and expand my technical knowledge in front-end and back-end development.<br />
+						<br />
+
+						I have the ability to quickly learn and use any Javascript framework or library with little time spent studying. However, I firmly believe that less is more and I prefer solutions with fewer external dependencies, prioritizing clean and efficient code.<br />
+						I learned to program in an environment without internet access and without mentors, which provided me with a solid and self-taught foundation. Minimizing the technical challenges of professional environments.<br />
+						One of my strengths is the ability to mentor novice developers, helping them evolve and excel in their careers.<br />
+						I consider my practical projects and professional experiences as the best proof of my skills. I am always aware of the most reliable sources on the internet to keep myself updated with the new trends and technologies in the sector.<br />
+						<br />
+						Learning is constant and enjoyable!
+					</p>
 				</div>
-				<br>
-				<p>
-					In this site you can get access to some of my personal projects.<br />
-					If you wish to see the codes, feel free to browse all my repositories in <a href="https://github.com/Djalmir?tab=repositories" target="_blank">Github</a>
-				</p>
+			</div>
+			<br>
+			<p>
+				On this site you can get access to some of my personal projects.<br />
+				If you wish to see the codes, feel free to browse all my repositories on <a href="https://github.com/Djalmir?tab=repositories" target="_blank">Github</a>
+			</p>
 
-				<button id="scrollDownBt" class="blueBt" onclick="document.querySelector('.h1Container').scrollIntoView()"></button>
-			</div>
-		</section>
-		<canvas id="canvas1"></canvas>
-		<section id="section2">
-			<div class="h1Container">
-				<h1>Tools</h1>
-			</div>
-			<div class="container">
-				<ul>
-					<li>
-						<div>
-							<b>ZionJS</b>
-							<hr />
-						</div>
-						<div class="innerLi">
-							<p>
-								ZionJS is a script that gives the developer the power of two way data binding and conditional rendering in pure javascript. In addition to facilitating the creation of http requests using the fetch API.
-							</p>
-							<p>
-								It's not something I would recommend in a professional project yet. But I'm already able to work on my personal projects with it!
-							</p>
-						</div>
-						<div class="aContainer innerLi">
-							<a href="https://github.com/Djalmir/ZionJS" target="_blank">
-								<button class="blueBt">Show me the code!</button>
-							</a>
-						</div>
-						<br />
+			<button id="scrollDownBt" class="blueBt" onclick="document.querySelector('.h1Container').scrollIntoView()"></button>
+		</div>
+	</section>
+	<canvas id="canvas1"></canvas>
+	<section id="section2">
+		<div class="h1Container">
+			<h1>Sites</h1>
+		</div>
+		<div class="container">
+			<ul>
+				<li>
+					<div>
+						<b>Task Board</b>
 						<hr />
-						<div class="innerLi">
-							<small>
-								<span>Technologies used in this project:</span><br />
-								<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
-							</small>
-						</div>
-					</li>
-
-					<li>
-						<div>
-							<b>ZionCarousel</b>
-							<hr />
-						</div>
-						<div class="innerLi">
-							<p>
-								ZionCarousel is an image carousel capable of reaching full screen mode with a simple click on any image in it. While in full screen, you can browse the images with the arrow keys.
-							</p>
-							<p>
-								It is used many times on this site that you are now viewing.
-							</p>
-						</div>
-						<div class="aContainer innerLi">
-							<a href="https://github.com/Djalmir/zionCarousel" target="_blank">
-								<button class="blueBt">Show me the code!</button>
-							</a>
-						</div>
-						<br />
-						<hr />
-						<div class="innerLi">
-							<small>
-								<span>Technologies used in this project:</span><br />
-								<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
-							</small>
-						</div>
-					</li>
-				</ul>
-			</div>
-
-			<div class="h1Container">
-				<h1>Sites</h1>
-			</div>
-			<div class="container">
-				<ul>
-					<li>
-						<div>
-							<b>Home</b>
-							<hr />
-						</div>
-						<zion-carousel srcs="imgs/home (1).png,imgs/home (2).png,imgs/home (3).png,imgs/home (4).png"></zion-carousel>
-						<div class="innerLi">
-							<p>
-								With this Home page, you can create website shortcut lists. Each shortcut gets the site icon automatically.
-							</p>
-							<p>
-								You can login to your Razion account and access all your shortcuts on any device.
-							</p>
-						</div>
-						<div class="aContainer innerLi">
-							<a href="https://home.razion.app.br" target="_blank">
-								<button class="blueBt">Visit Site</button>
-							</a>
-						</div>
-						<br />
-						<hr />
-						<div class="innerLi">
-							<small>
-								<span>Technologies used in this project:</span><br />
-								<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
-								<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
-								<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
-							</small>
-						</div>
-					</li>
-
-					<li>
-						<div>
-							<b>Task Board</b>
-							<hr />
-						</div>
-						<zion-carousel srcs="imgs/taskboard (1).png,imgs/taskboard (2).png,imgs/taskboard (3).png,imgs/taskboard (4).png"></zion-carousel>
-						<div class="innerLi">
-							<p>
-								With this personal Kanban and a Razion account you will be able<br />
-								to organize your task boards like a boss on any device!
-							</p>
-							<p>
+					</div>
+					<zion-carousel srcs="imgs/taskboard (1).png,imgs/taskboard (2).png,imgs/taskboard (3).png,imgs/taskboard (4).png"></zion-carousel>
+					<div class="innerLi">
+						<p>
+							With this personal Kanban and a Razion account you will be able<br />
+							to organize your task boards like a boss on any device!
+						</p>
+						<!-- <p>
 								TaskBoard is a PWA!<br />
 								So you can install it on any device!
-							</p>
-						</div>
-						<div class="aContainer innerLi">
-							<a href="https://taskBoard.razion.app.br" target="_blank">
-								<button class="blueBt">Visit Site</button>
-							</a>
-						</div>
-						<br />
+							</p> -->
+					</div>
+					<div class="aContainer innerLi">
+						<a href="https://taskBoard.razion.app.br" target="_blank">
+							<button class="blueBt">Visit Site</button>
+						</a>
+					</div>
+					<br />
+					<hr />
+					<div class="innerLi">
+						<small>
+							<span>Technologies used in this project:</span><br />
+							<img src="https://img.shields.io/badge/-Vue 3-202020?style=flat&logo=vue.js" alt="js badge" class="badge" />
+						</small>
+					</div>
+				</li>
+
+				<li>
+					<div>
+						<b>Games</b>
 						<hr />
-						<div class="innerLi">
-							<small>
-								<span>Technologies used in this project:</span><br />
-								<img src="https://img.shields.io/badge/-ZionJS-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
-							</small>
-						</div>
-					</li>
-
-					<li>
-						<div>
-							<b>Games</b>
-							<hr />
-						</div>
-						<zion-carousel srcs="imgs/games (1).png,imgs/games (2).png,imgs/games (3).png,imgs/games (4).png"></zion-carousel>
-						<div class="innerLi">
-							<p>Have fun!</p>
-							<p>
-								Currently the games are working only on desktop.<br />
-								But I'll be working on this as soon as possible.
-							</p>
-						</div>
-						<div class="aContainer innerLi">
-							<a href="https://games.razion.app.br" target="_blank">
-								<button class="blueBt">Visit Site</button>
-							</a>
-						</div>
-						<br />
-						<hr>
-						<div class="innerLi">
-							<small>
-								<span>Technologies used in this project:</span><br />
-								<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
-								<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
-								<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
-							</small>
-						</div>
-					</li>
-
-					<li>
-						<div>
-							<b>Chat</b>
-							<hr />
-						</div>
-						<zion-carousel srcs="imgs/chat (1).png,imgs/chat (2).png,imgs/chat (3).png"></zion-carousel>
-						<div class="innerLi">
-							<p>
-								Let's say it's a beta version... 😅<br />
-								There's still a lot of work to be done. But you can take a look at how it's getting.
-							</p>
-							<p>
-								Developed with websockets. This chat stores the messages only while the involved users are still logged in.
-							</p>
-						</div>
-						<div class="aContainer innerLi">
-							<a href="https://chat.razion.app.br" target="_blank">
-								<button class="blueBt">Visit Site</button>
-							</a>
-						</div>
-						<br />
-						<hr />
-						<div class="innerLi">
-							<small>
-								<span>Technologies used in this project:</span><br />
-								<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
-								<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
-								<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
-							</small>
-						</div>
-					</li>
-				</ul>
-			</div>
-
-		</section>
-		<div id="footerContainer">
-			<footer>
-				<small>
-					<span>Technologies used in this site:</span><br />
-					<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
-					<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
-					<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
-				</small>
-				<span>Copyright &copy; 2021 - by <a href="https://github.com/Djalmir" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a></span>
-				<button id="hideInterfaceBt" onclick="showHideInterface()">
-					<span id="hideInterfaceBtSpan">Hide Interface</span>
-					<img src="/imgs/eye.svg" id="eyeImg" alt="eye image">
-				</button>
-			</footer>
+					</div>
+					<zion-carousel srcs="imgs/games (1).png,imgs/games (2).png,imgs/games (3).png,imgs/games (4).png"></zion-carousel>
+					<div class="innerLi">
+						<p>Have fun!</p>
+						<p>
+							Currently the games are working only on desktop.<br />
+							But I'll be working on this as soon as possible.
+						</p>
+					</div>
+					<div class="aContainer innerLi">
+						<a href="https://djalmir.github.io/Games" target="_blank">
+							<button class="blueBt">Visit Site</button>
+						</a>
+					</div>
+					<br />
+					<hr>
+					<div class="innerLi">
+						<small>
+							<span>Technologies used in this project:</span><br />
+							<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
+							<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
+							<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
+						</small>
+					</div>
+				</li>
+			</ul>
 		</div>
 
-		<script src="index.js"></script>
-		<script src="https://cdn.jsdelivr.net/gh/Djalmir/zionCarousel/carousel.js"></script>
-	</body>
+	</section>
+	<div id="footerContainer">
+		<footer>
+			<small>
+				<span>Technologies used on this site:</span><br />
+				<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
+				<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
+				<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
+			</small>
+			<span>Copyright &copy; 2021 - by <a href="https://github.com/Djalmir" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a></span>
+			<button id="hideInterfaceBt" onclick="showHideInterface()">
+				<span id="hideInterfaceBtSpan">Hide Interface</span>
+				<img src="/imgs/eye.svg" id="eyeImg" alt="eye image">
+			</button>
+		</footer>
+	</div>
+
+	<script src="index.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/Djalmir/zionCarousel/carousel.js"></script>
+</body>
 
 </html>
