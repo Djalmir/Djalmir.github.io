@@ -232,7 +232,7 @@ function animate1(timeStamp) {
 					((particlesArray1[a].y - particlesArray1[b].y) * (particlesArray1[a].y - particlesArray1[b].y))
 				if (distance < (canvas1.width / 7) * (canvas1.height / 7)) {
 					opacityValue = 1 - (distance / 15000)
-					c1.strokeStyle = `rgba(0,51,102,${ opacityValue })`
+					c1.strokeStyle = `rgba(0,51,102,${opacityValue})`
 					c1.lineWidth = 1
 					c1.beginPath()
 					c1.moveTo(particlesArray1[a].x, particlesArray1[a].y)
@@ -249,9 +249,9 @@ function animate1(timeStamp) {
 				else
 					opacityValue = 1 - (distance / 50000)
 				if (mouseDown)
-					c1.strokeStyle = `rgba(102,0,51,${ opacityValue })`
+					c1.strokeStyle = `rgba(102,0,51,${opacityValue})`
 				else
-					c1.strokeStyle = `rgba(0,51,102,${ opacityValue })`
+					c1.strokeStyle = `rgba(0,51,102,${opacityValue})`
 				c1.lineWidth = 1
 				c1.beginPath()
 				c1.moveTo(particlesArray1[a].x, particlesArray1[a].y)
@@ -265,8 +265,8 @@ function animate1(timeStamp) {
 
 	if (section2fade < 1) {
 		let gradient = c1.createRadialGradient(canvas1.width / 2, canvas1.height / 2, canvas1.width / 8, canvas1.width / 2, canvas1.height / 2, canvas1.width / 2)
-		gradient.addColorStop(0, `rgba(16,16,16,${ section2fade })`)
-		gradient.addColorStop(1, `rgba(0,0,0,${ section2fade })`)
+		gradient.addColorStop(0, `rgba(16,16,16,${section2fade})`)
+		gradient.addColorStop(1, `rgba(0,0,0,${section2fade})`)
 		c1.fillStyle = gradient
 		c1.fillRect(0, 0, canvas1.width, canvas1.height)
 	}
@@ -337,10 +337,22 @@ function copyLink() {
 	msg.showMessage('Tag copied!', "Now you're just a CTRL + V away from seeing your project logs on your phone! 😀")
 }
 
-// console.log(`
-// 	TIP:\n
-// 	In this console you can't declare variables like this:\n
-// 	var foo = 123\n
-// 	Instead, you just type:\n
-// 	foo = 123
-// `)
+// let geolocation
+// navigator.geolocation.getCurrentPosition((position) => {
+// 	geolocation = `${position.coords.latitude},${position.coords.longitude}`
+// 	access()
+// }, (err) => access())
+
+// function access() {
+	// fetch('http://192.168.100.100:9000/auth/access', {
+	fetch('https://api.razion.app.br/auth/access', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			app: location.host,
+			// geolocation: geolocation
+		})
+	})
+// }
