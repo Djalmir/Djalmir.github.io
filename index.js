@@ -344,15 +344,17 @@ function copyLink() {
 // }, (err) => access())
 
 // function access() {
-	// fetch('http://192.168.100.100:9000/auth/access', {
-	fetch('https://api.razion.app.br/auth/access', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			app: location.host,
-			// geolocation: geolocation
-		})
+// fetch('http://192.168.100.100:9000/auth/access', {
+fetch('https://api.razion.app.br/auth/access', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	body: JSON.stringify({
+		app: location.host,
+		browser: navigator.userAgent,
+		language: navigator.language,
+		// geolocation: geolocation
 	})
+})
 // }
