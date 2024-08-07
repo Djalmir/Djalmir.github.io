@@ -331,12 +331,6 @@ function showHideInterface() {
 	}
 }
 
-function copyLink() {
-	navigator.clipboard.writeText(document.querySelector('#cmLink').innerText)
-	let msg = document.querySelector('#my-message')
-	msg.showMessage('Tag copied!', "Now you're just a CTRL + V away from seeing your project logs on your phone! 😀")
-}
-
 // let geolocation
 // navigator.geolocation.getCurrentPosition((position) => {
 // 	geolocation = `${position.coords.latitude},${position.coords.longitude}`
