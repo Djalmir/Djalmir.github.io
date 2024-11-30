@@ -295,6 +295,53 @@ window.addEventListener('mouseout', () => {
 	mouse1.y = undefined
 })
 
+const conditions = {
+	isIntersecting: false,
+	carouselFullScreen: false
+}
+Object.defineProperty(conditions, 'isIntersecting', {
+	get: () => {
+		return conditions._isIntersecting
+	},
+	set: (val) => {
+		conditions._isIntersecting = val
+		updateScrollBt()
+	}
+})
+const observer = new IntersectionObserver((entries) => {
+	entries.forEach((entry) => {
+		if (entry.isIntersecting) {
+			conditions.isIntersecting = true
+		}
+		else {
+			conditions.isIntersecting = false
+		}
+	})
+})
+observer.observe(document.querySelector('.container'))
+
+Object.defineProperty(conditions, 'carouselFullScreen', {
+	get: () => {
+		return conditions._carouselFullScreen
+	},
+	set: (val) => {
+		conditions._carouselFullScreen = val
+		updateScrollBt()
+	}
+})
+document.addEventListener('zionCarousel-isFullScreen', (e) => {
+	conditions.carouselFullScreen = e.detail
+})
+
+function updateScrollBt() {
+	if (conditions.isIntersecting && !conditions.carouselFullScreen) {
+		document.querySelector('#scrollUpBt').style.display = 'block'
+	}
+	else {
+		document.querySelector('#scrollUpBt').style.display = 'none'
+	}
+}
+
 // init()
 init1()
 animate1(0)

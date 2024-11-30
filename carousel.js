@@ -168,6 +168,7 @@ class Carousel extends HTMLElement {
       img.onclick = () => {
         if (!sessionStorage.getItem('zionCarousel-isFullScreen')) {
           sessionStorage.setItem('zionCarousel-isFullScreen', 'true')
+          document.dispatchEvent(new CustomEvent('zionCarousel-isFullScreen', { detail: true }))
           wrapper.style.background = `${this.themeColor ? this.themeColor : '#090909d8'}`
           let documentBody = document.documentElement.querySelector('body')
           let compBounding = this.getBoundingClientRect()
@@ -320,6 +321,7 @@ class Carousel extends HTMLElement {
               animating = false
               this.removeEventListener('animationend', rmCarousel)
               sessionStorage.removeItem('zionCarousel-isFullScreen')
+              document.dispatchEvent(new CustomEvent('zionCarousel-isFullScreen', { detail: false }))
               this.style = ''
               documentBody.removeChild(closeBt)
             }

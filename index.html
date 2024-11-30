@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="theme-color" content="#001133">
 	<link rel="stylesheet" href="index.css">
 	<link rel="icon" href="favicon.ico" />
@@ -23,17 +23,26 @@
 						<img id="pic" src="/imgs/Dj.png" alt="Foto de Djalmir Miodutzki">
 					</div>
 					<p>
-						I'm Djalmir Miodutzki.<br />
-						<br />
-						I started my programming journey with Delphi at the age of 16, but it was with Javascript that I truly found my passion. Since then, I have deepened my knowledge in pure JS and gained extensive experience in Vue.js and NodeJS.<br />
-						During my career, I have had the opportunity to develop some professional applications from scratch. These projects have allowed me to apply and expand my technical knowledge in front-end and back-end development.
-					<details>
-						<summary style="cursor: pointer; font-size: 0.8rem; font-weight: bold;">Read more</summary>
-						<br />
-						I have the ability to quickly learn and use any Javascript framework or library with little time spent studying. However, I prefer solutions with fewer external dependencies, prioritizing clean and efficient code.<br />
-						I learned to program in an environment without internet access and without mentors, which provided me with a solid and self-taught foundation, minimizing the technical challenges of professional environments.
-					</details>
+						I'm Djalmir Miodutzki.
 					</p>
+					<p>
+						I am a frontend developer with experience since 2016, specializing in building dynamic, responsive, and scalable web applications. My expertise spans a wide range of technologies, including pure JavaScript, Vue.js (Vue 2 and Vue 3), and build tools like Vite and Webpack.
+					</p>
+					<p>
+						I excel in creating modern user interfaces, from Single Page Applications (SPA) and Progressive Web Apps (PWA) to custom solutions leveraging WebComponents. Additionally, I have advanced skills in API integrations, high-level DOM manipulation, and developing interactive games and graphics using HTML5 Canvas.
+					</p>
+					<details>
+						<summary>More about me</summary>
+						<p>
+							Beyond frontend development, I have strong expertise in backend technologies, including Node.js and Express, as well as server administration with Ubuntu, Nginx, PM2, and advanced deployment configurations. My skill set also covers MongoDB, WebSockets, WebRTC, SEO, responsive design, and version control tools like Git.
+						</p>
+						<p>
+							With over 30 technical skills in my portfolio, I am driven by the pursuit of efficient and innovative solutions. I see challenges not as obstacles but as opportunities to exceed expectations and deliver exceptional results.
+						</p>
+						<p>
+							If you are looking for a versatile and dedicated developer to turn ideas into impactful projects, I would be delighted to collaborate with you.
+						</p>
+					</details>
 				</div>
 			</div>
 			<br>
@@ -42,14 +51,11 @@
 				If you wish to see the codes, feel free to browse all my repositories on <a href="https://github.com/Djalmir?tab=repositories" target="_blank">Github</a>
 			</p>
 
-			<button id="scrollDownBt" class="blueBt" onclick="document.querySelector('.h1Container').scrollIntoView()"></button>
+			<button id="scrollDownBt" class="blueBt" title="scrollDown" onclick="document.querySelector('#section2').scrollIntoView()"></button>
 		</div>
 	</section>
 	<canvas id="canvas1"></canvas>
 	<section id="section2">
-		<div class="h1Container">
-			<h1>Sites</h1>
-		</div>
 		<div class="container">
 			<ul>
 				<li>
@@ -57,19 +63,17 @@
 						<b>Task Board</b>
 						<hr />
 					</div>
-					<zion-carousel srcs="imgs/taskboard (1).png,imgs/taskboard (2).png,imgs/taskboard (3).png,imgs/taskboard (4).png"></zion-carousel>
-					<div class="innerLi">
+					<zion-carousel srcs="imgs/taskboard (1).png,imgs/taskboard (2).png,imgs/taskboard (3).png,imgs/taskboard (4).png,imgs/taskboard (5).png"></zion-carousel>
+					<div class="first innerLi">
 						<p>
-							With this personal Kanban and a Razion account you will be able<br />
-							to organize your task boards like a boss on any device!
+							Minimalist Kanban for teams focused on productivity.
 						</p>
-						<!-- <p>
-								TaskBoard is a PWA!<br />
-								So you can install it on any device!
-							</p> -->
+						<p>
+							With websockets technology for real-time updates for all users connected to the same board. Respecting user preferences, with light and dark themes.
+						</p>
 					</div>
 					<div class="aContainer innerLi">
-						<a href="https://taskBoard.razion.app.br" target="_blank">
+						<a href="https://taskBoard.razion.app.br" target="_blank" rel="noopener noreferrer">
 							<button class="blueBt">Visit Site</button>
 						</a>
 					</div>
@@ -79,6 +83,7 @@
 						<small>
 							<span>Technologies used in this project:</span><br />
 							<img src="https://img.shields.io/badge/-Vue 3-202020?style=flat&logo=vue.js" alt="js badge" class="badge" />
+							<img src="https://img.shields.io/badge/-Node.js-202020?style=flat&logo=node.js" alt="js badge" class="badge" />
 						</small>
 					</div>
 				</li>
@@ -89,15 +94,14 @@
 						<hr />
 					</div>
 					<zion-carousel srcs="imgs/games (1).png,imgs/games (2).png,imgs/games (3).png,imgs/games (4).png"></zion-carousel>
-					<div class="innerLi">
+					<div class="first innerLi">
 						<p>Have fun!</p>
 						<p>
-							Currently the games are working only on desktop.<br />
-							But I'll be working on this as soon as possible.
+							Classic games site. All games were made with pure javascript!
 						</p>
 					</div>
 					<div class="aContainer innerLi">
-						<a href="https://games.razion.app.br" target="_blank">
+						<a href="https://games.razion.app.br" target="_blank" rel="noopener noreferrer">
 							<button class="blueBt">Visit Site</button>
 						</a>
 					</div>
@@ -109,6 +113,61 @@
 							<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
 							<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
 							<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
+						</small>
+					</div>
+				</li>
+
+				<li>
+					<div>
+						<b>Video editor portfolio</b>
+						<hr />
+					</div>
+					<zion-carousel srcs="imgs/video-editor (1).png,imgs/video-editor (2).png"></zion-carousel>
+					<div class="first innerLi">
+						<p>
+							Portfolio for a video editor with rotating texts and an interactive 3D smartphone.
+						</p>
+					</div>
+					<div class="aContainer innerLi">
+						<a href="https://hosamaoliveira.github.io/" target="_blank" rel="noopener noreferrer">
+							<button class="blueBt">Visit Site</button>
+						</a>
+					</div>
+					<br />
+					<hr>
+					<div class="innerLi">
+						<small>
+							<span>Technologies used in this project:</span><br />
+							<img src="https://img.shields.io/badge/-HTML-202020?style=flat&logo=HTML5" alt="html badge" class="badge" />
+							<img src="https://img.shields.io/badge/-CSS-202020?style=flat&logo=CSS3&logoColor=1572B6" alt="css badge" class="badge" />
+							<img src="https://img.shields.io/badge/-JavaScript-202020?style=flat&logo=javascript" alt="js badge" class="badge" />
+						</small>
+					</div>
+				</li>
+
+				<li>
+					<div>
+						<b>Leads Dashboard</b>
+						<hr />
+					</div>
+					<zion-carousel srcs="imgs/dashboard (1).png,imgs/dashboard (2).png,imgs/dashboard (3).png,imgs/dashboard (4).png,imgs/dashboard (5).png,imgs/dashboard (6).png"></zion-carousel>
+					<div class="first innerLi">
+						<p>
+							Administrative dashboard for viewing leads. With maps showing the approximate location of website accesses.
+						</p>
+					</div>
+					<div class="aContainer innerLi">
+						<a href="https://razion.app.br" target="_blank" rel="noopener noreferrer">
+							<button class="blueBt">Visit Site</button>
+						</a>
+					</div>
+					<br />
+					<hr />
+					<div class="innerLi">
+						<small>
+							<span>Technologies used in this project:</span><br />
+							<img src="https://img.shields.io/badge/-Vue 3-202020?style=flat&logo=vue.js" alt="js badge" class="badge" />
+							<img src="https://img.shields.io/badge/-Node.js-202020?style=flat&logo=node.js" alt="js badge" class="badge" />
 						</small>
 					</div>
 				</li>
@@ -132,9 +191,13 @@
 		</footer>
 	</div>
 
+	<button id="scrollUpBt" class="blueBt" title="scrollUp" onclick="document.querySelector('#section1').scrollIntoView()">
+		<img src="/imgs/arrow-up.svg" alt="arrow up image">
+	</button>
+
 	<script src="index.js"></script>
 	<!-- <script src="https://cdn.jsdelivr.net/gh/Djalmir/zionCarousel/carousel.js"></script> -->
-	 <script src="carousel.js"></script>
+	<script src="carousel.js"></script>
 </body>
 
 </html>
