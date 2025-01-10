@@ -75,13 +75,32 @@ if (mouse1.radius < 80)
 if (mouse1.radius > 150)
 	mouse1.radius = 150
 
+let restingElements = el => el.tagName == 'LI' || el.tagName == 'ZION-CAROUSEL'
+let dontAttractParticles = (e) => {
+	return e.touches?.length ?
+		document.elementsFromPoint(e.touches[e.touches.length - 1].clientX, e.touches[e.touches.length - 1].clientY).find(restingElements) :
+		document.elementsFromPoint(e.clientX, e.clientY).find(restingElements)
+}
+
 window.addEventListener('mousemove', (e) => {
-	mouse1.x = e.x
-	mouse1.y = e.y
+	if (dontAttractParticles(e)) {
+		mouse1.x = undefined
+		mouse1.y = undefined
+	}
+	else {
+		mouse1.x = e.x
+		mouse1.y = e.y
+	}
 })
 window.addEventListener('touchmove', (e) => {
-	mouse1.x = e.touches[e.touches.length - 1].clientX
-	mouse1.y = e.touches[e.touches.length - 1].clientY
+	if (dontAttractParticles(e)) {
+		mouse1.x = undefined
+		mouse1.y = undefined
+	}
+	else {
+		mouse1.x = e.touches[e.touches.length - 1].clientX
+		mouse1.y = e.touches[e.touches.length - 1].clientY
+	}
 })
 
 let mouseDown = false
@@ -173,8 +192,8 @@ class Particle1 {
 					this.y += directionY / 2
 			}
 		}
-		this.x += this.directionX
-		this.y += this.directionY
+		this.x += this.directionX * 1.5
+		this.y += this.directionY * 1.5
 		this.draw()
 	}
 }
@@ -185,8 +204,7 @@ function init1() {
 	if (particlesAmmount > 150)
 		particlesAmmount = 150
 	for (let i = 0; i < particlesAmmount; i++) {
-		let size = (Math.random() * 2) + 1
-		// let size = 1
+		let size = (Math.random() * 1.5) + .5
 		let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2)
 		let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2)
 		let directionX = (Math.random() * 2) - 1
@@ -213,7 +231,7 @@ function animate1(timeStamp) {
 			matrixC.fillStyle = 'rgba(0,0,0,.1)'
 			matrixC.textAlign = 'center'
 			matrixC.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height)
-			matrixC.fillStyle = BrazilFlag//'#0099ff'
+			matrixC.fillStyle = BrazilFlag
 			matrixC.font = effect.fontSize + 'px monospace'
 			effect.symbols.forEach(symbol => symbol.draw(matrixC))
 			timer = 0
@@ -342,7 +360,6 @@ function updateScrollBt() {
 	}
 }
 
-// init()
 init1()
 animate1(0)
 

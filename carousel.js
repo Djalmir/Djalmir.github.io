@@ -7,7 +7,7 @@ class Carousel extends HTMLElement {
 
     if (!srcs) {
       if (!this.hasAttribute('srcs'))
-        throw new Error("The carousel needs the attribute srcs. It should an array of image sources or a string of sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
+        throw new Error("The carousel needs the 'srcs' attribute. It should be an array of image sources or a string of sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
 
       if (typeof this.getAttribute('srcs') == 'string') {
         srcs = this.getAttribute('srcs').split(',').map((attr) => {
@@ -17,7 +17,7 @@ class Carousel extends HTMLElement {
       else {
         srcs = this.getAttribute('srcs')
         if (!Array.isArray(srcs))
-          throw new Error("The carousel needs the attribute srcs. It should an array of image sources or a string of sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
+          throw new Error("The carousel needs the 'srcs' attribute. It should be an array of image sources or a string of sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
       }
     }
     else {
@@ -27,7 +27,7 @@ class Carousel extends HTMLElement {
         })
       }
       else if (!Array.isArray(srcs))
-        throw new Error("The carousel needs the attribute srcs. It should an array of image sources or a string of sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
+        throw new Error("The carousel needs the 'srcs' attribute. It should be an array of image sources or a string of sources separated by commas.\nExample:\n<zion-carousel srcs='img1.png, img2.png, img3.png' />\n😉\n")
     }
 
     const style = this.shadowRoot.appendChild(document.createElement('style'))
