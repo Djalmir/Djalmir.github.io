@@ -403,7 +403,7 @@ function showHideInterface() {
 
 // function access() {
 // fetch('http://192.168.100.100:9000/auth/access', {
-fetch('https://api.razion.app.br/auth/access', {
+fetch('https://api.razion.games/auth/access', {
 	method: 'POST',
 	headers: {
 		'Content-Type': 'application/json'
